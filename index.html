@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Grand Tour Dijital Görünürlük</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600&display=swap">
+<style>
+/* Layout: uaegrandtour.com dili — kum zemin, ince büyük harf Jost başlıklar, numaralı bölüm etiketleri, kil rengi hap butonlar */
+:root{
+  --sand:#f4ede6; --sand-2:#e9dbcc; --paper:#fcfaf7; --ink:#223749; --ink-2:#344d67;
+  --clay:#c06642; --clay-dark:#9c4f2f; --gold:#c5954d; --forest:#31463c; --stone:#8a7a68;
+  --line:rgba(34,55,73,.14); --muted:rgba(34,55,73,.68);
+  --bg:var(--sand); --fg:var(--ink); --surface:var(--paper); --surface-2:var(--sand-2);
+  --hero-bg:#223749; --hero-fg:#fcfaf7; --dune-1:#c06642; --dune-2:#9c4f2f; --dune-3:#d8c6af; --sun:#edc48a;
+  --ok:#3f7a5a; --warn:#b07a1f; --bad:#a8432a;
+  --display:"Jost","Noto Kufi Arabic",system-ui,sans-serif; --body:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#16212b; --fg:#efe6dc; --surface:#1e2c39; --surface-2:#263849; --line:rgba(239,230,220,.14); --muted:rgba(239,230,220,.66);
+  --ink:#efe6dc; --ink-2:#cdbfae; --clay:#dc8460; --clay-dark:#c06642; --gold:#d9ac66; --forest:#8fb39e; --stone:#b3a38f;
+  --hero-bg:#0f1820; --hero-fg:#f4ede6; --dune-1:#a4532f; --dune-2:#7e3d22; --dune-3:#3a4b5a; --sun:#d9ac66;
+  --ok:#7cc29a; --warn:#e0b25a; --bad:#e58a6d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#16212b; --fg:#efe6dc; --surface:#1e2c39; --surface-2:#263849; --line:rgba(239,230,220,.14); --muted:rgba(239,230,220,.66);
+  --ink:#efe6dc; --ink-2:#cdbfae; --clay:#dc8460; --clay-dark:#c06642; --gold:#d9ac66; --forest:#8fb39e; --stone:#b3a38f;
+  --hero-bg:#0f1820; --hero-fg:#f4ede6; --dune-1:#a4532f; --dune-2:#7e3d22; --dune-3:#3a4b5a; --sun:#d9ac66;
+  --ok:#7cc29a; --warn:#e0b25a; --bad:#e58a6d; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-weight:300;font-size:16px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--hero-bg)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--clay)}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;text-wrap:balance;margin:0}
+h2{font-weight:200;font-size:clamp(30px,4.6vw,48px);letter-spacing:-.035em;line-height:1.02;color:var(--fg)}
+h3{font-weight:300;font-size:19px;letter-spacing:-.01em;line-height:1.2}
+p{margin:0}
+.eyebrow{display:flex;align-items:center;gap:12px;font-size:11.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--clay)}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--gold)}
+.lede{font-size:18px;max-width:64ch;color:var(--muted)}
+.small{font-size:13px;color:var(--muted)}
+.tag{display:inline-block;font-size:10.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--clay);color:#fff;border:0;border-radius:999px;padding:11px 20px;font:500 11.5px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;text-decoration:none}
+.pill:hover{background:var(--clay-dark)}
+.pill.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.pill.ghost:hover{border-color:var(--clay);color:var(--clay)}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--hero-bg);color:var(--hero-fg);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.logo{font:300 11px/1.05 var(--display);letter-spacing:.2em;text-transform:uppercase;color:var(--hero-fg);text-decoration:none}
+.logo b{font-weight:500;color:var(--sun)}
+.navlinks{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{color:rgba(255,255,255,.72);text-decoration:none;font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:8px 10px;border-radius:999px;white-space:nowrap}
+.navlinks a:hover{color:#fff;background:rgba(255,255,255,.08)}
+
+/* hero */
+.hero{background:var(--hero-bg);color:var(--hero-fg);position:relative;overflow:hidden}
+.hero .wrap{position:relative;z-index:2;padding-block:72px 210px;display:grid;gap:22px}
+.hero h1{font-weight:100;font-size:clamp(40px,7.4vw,92px);letter-spacing:-.05em;line-height:.95;color:var(--hero-fg)}
+.hero h1 span{color:var(--sun)}
+.hero .lede{color:rgba(255,255,255,.8);font-size:18px}
+.hero .eyebrow{color:var(--sun)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.hero-meta .tag{color:rgba(255,255,255,.85);border-color:rgba(255,255,255,.25)}
+.dunes{position:absolute;inset:auto 0 0 0;height:260px;z-index:1;width:100%}
+.sun{position:absolute;right:18%;bottom:120px;width:104px;height:104px;border-radius:50%;background:var(--sun);opacity:.9;z-index:1}
+.dunes .d1{fill:var(--dune-3)} .dunes .d2{fill:var(--dune-1)} .dunes .d3{fill:var(--dune-2)} .dunes .d4{fill:var(--bg)}
+
+section.block{padding-block:84px;border-top:1px solid var(--line)}
+section.block:first-of-type{border-top:0}
+.head{display:grid;gap:16px;margin-bottom:40px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.card{background:var(--surface);border:1px solid var(--line);padding:24px;display:grid;gap:12px;align-content:start;min-width:0}
+.card h3{color:var(--fg)}
+.card ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.card li::marker{color:var(--gold)}
+.num{font:200 44px/1 var(--display);letter-spacing:-.04em;color:var(--clay);font-variant-numeric:tabular-nums}
+.kpi .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+.flag{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:16px 0;border-top:1px solid var(--line)}
+.flag:first-child{border-top:0}
+.dot{width:10px;height:10px;border-radius:50%;margin-top:8px}
+.dot.ok{background:var(--ok)} .dot.warn{background:var(--warn)} .dot.bad{background:var(--bad)}
+
+/* route strip */
+.route{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;border:1px solid var(--line);background:var(--surface)}
+.route div{padding:18px 14px;border-left:1px solid var(--line);display:grid;gap:4px;align-content:start}
+.route div:first-child{border-left:0}
+.route b{font:400 13px/1.2 var(--display);letter-spacing:.08em;text-transform:uppercase}
+.route i{font-style:normal;font-size:13px;color:var(--clay)}
+.route span{font-size:12px;color:var(--muted)}
+@media (max-width:860px){.route{grid-template-columns:1fr 1fr}.route div{border-left:0;border-top:1px solid var(--line)}}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--muted);background:var(--surface-2);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right}
+.matrix td{font-size:12.5px;min-width:120px}
+
+/* platform pills */
+.pl{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.08em;padding:3px 7px;border-radius:4px;color:#fff;min-width:30px;text-align:center}
+.pl.IG{background:#b0465f}.pl.TT{background:#1f2a33}.pl.YT{background:#b8322a}.pl.FB{background:#3a5a98}.pl.LI{background:#2b6a96}.pl.PN{background:#a33a3a}.pl.EM{background:var(--forest)}.pl.GB{background:#6a7d3a}.pl.WA{background:#2f7d5c}
+:root[data-theme="dark"] .pl.TT{background:#4a5763}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pl.TT{background:#4a5763}}
+
+/* calendar */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.seg button{border:0;background:transparent;color:var(--fg);font:500 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;padding:9px 14px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink-2);color:var(--paper)}
+:root[data-theme="dark"] .seg button[aria-pressed="true"]{background:var(--clay);color:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .seg button[aria-pressed="true"]{background:var(--clay);color:#fff}}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:6px 10px;font:500 11px/1 var(--body);letter-spacing:.06em;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip[aria-pressed="false"]{opacity:.45}
+.cal{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr))}
+.day{background:var(--surface);border:1px solid var(--line);display:grid;align-content:start;min-width:0}
+.day.special{border-color:var(--gold)}
+.day header{display:flex;gap:10px;align-items:baseline;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.day .dt{font:300 20px/1 var(--display);text-transform:uppercase;letter-spacing:-.01em}
+.day .dt small{font-size:11px;letter-spacing:.16em;color:var(--muted);margin-left:6px}
+.day .wk{font-size:11px;color:var(--clay);letter-spacing:.08em;text-transform:uppercase}
+.badge{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--gold);color:#1c1c1c;padding:3px 8px;border-radius:999px}
+.item{display:grid;grid-template-columns:44px 40px 1fr;gap:10px;padding:10px 16px;border-top:1px solid var(--line);font-size:13.5px;align-items:start}
+.item:first-of-type{border-top:0}
+.item .t{font-variant-numeric:tabular-nums;color:var(--muted);font-size:12.5px;padding-top:1px}
+.item .ti{min-width:0}
+.item .meta{font-size:11px;color:var(--muted);letter-spacing:.03em;margin-top:2px;word-break:break-all}
+.note{padding:10px 16px;font-size:12.5px;background:var(--surface-2);color:var(--muted)}
+.summary{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--muted);margin-bottom:14px}
+.summary b{color:var(--fg);font-weight:500}
+select{font:400 14px var(--body);padding:9px 12px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;max-width:100%}
+
+/* funnel */
+.funnel{display:grid;gap:8px}
+.funnel div{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:16px;padding:14px 18px;background:var(--surface);border:1px solid var(--line);align-items:center}
+.funnel div:nth-child(1){margin-inline:0} .funnel div:nth-child(2){margin-inline:3%} .funnel div:nth-child(3){margin-inline:6%} .funnel div:nth-child(4){margin-inline:9%}
+.funnel b{font:400 13px var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
+@media (max-width:620px){.funnel div{grid-template-columns:1fr;margin-inline:0!important}}
+
+.tiers{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.tier{background:var(--surface);border:1px solid var(--line);padding:26px;display:grid;gap:14px;align-content:start;cursor:pointer;text-align:left;color:var(--fg);font:inherit}
+.tier[aria-pressed="true"]{border-color:var(--clay);box-shadow:inset 0 3px 0 var(--clay)}
+.tier .price{font:200 40px/1 var(--display);letter-spacing:-.03em}
+.tier .price small{font-size:14px;color:var(--muted);letter-spacing:0}
+
+.steps{display:grid;gap:0;border-left:1px solid var(--gold);margin-left:6px}
+.step{position:relative;padding:0 0 26px 26px;display:grid;gap:4px}
+.step::before{content:"";position:absolute;left:-6px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:1px solid var(--gold)}
+.step.now::before{background:var(--clay);border-color:var(--clay)}
+.step .when{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--clay);font-weight:500}
+
+.status{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);background:var(--surface)}
+.status div{flex:1 1 120px;padding:14px;border-left:1px solid var(--line);display:grid;gap:2px}
+.status div:first-child{border-left:0}
+.status b{font:400 12px var(--display);text-transform:uppercase;letter-spacing:.1em}
+.status span{font-size:12px;color:var(--muted)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:var(--surface-2);padding:2px 6px;border-radius:4px;word-break:break-all}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink-2);color:var(--paper);padding:10px 18px;border-radius:999px;font-size:13px;z-index:20}
+:root[data-theme="dark"] .toast{background:var(--clay);color:#fff}
+footer{background:var(--hero-bg);color:rgba(255,255,255,.7);font-size:13px}
+footer .wrap{padding-block:40px;display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between}
+@media (prefers-reduced-motion:no-preference){.day,.card{transition:border-color .2s}}
+</style>
+<style>
+[hidden]{display:none!important}
+.hero .wrap{padding-block:56px 170px}
+section.block{padding-block:68px;scroll-margin-top:64px}
+.credit{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.credit b{color:var(--sun);font-weight:500}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--hero-bg);color:var(--hero-fg);border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar .wrap{display:flex;align-items:center;gap:16px;height:60px;position:relative}
+.menubtn{display:inline-flex;align-items:center;gap:10px;background:transparent;border:1px solid rgba(255,255,255,.25);color:var(--hero-fg);border-radius:999px;padding:9px 16px;font:500 11px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+.menubtn:hover{border-color:var(--sun);color:var(--sun)}
+.menubtn i{display:grid;gap:3px}.menubtn i::before,.menubtn i::after,.menubtn i span{content:"";display:block;width:14px;height:1px;background:currentColor}
+.menu{position:absolute;left:max(16px,env(safe-area-inset-left,0px));top:58px;background:var(--surface);color:var(--fg);border:1px solid var(--line);box-shadow:0 18px 40px rgba(0,0,0,.18);min-width:min(340px,calc(100vw - 32px));max-height:calc(100vh - 90px);overflow:auto;padding:8px;display:grid}
+.menu a{display:grid;grid-template-columns:34px 1fr;gap:8px;padding:10px 12px;color:var(--fg);text-decoration:none;font-size:14px;border-radius:4px}
+.menu a span{color:var(--clay);font-size:12px;letter-spacing:.1em;font-variant-numeric:tabular-nums;padding-top:1px}
+.menu a:hover,.menu a:focus-visible{background:var(--surface-2)}
+.topbar .right{margin-left:auto;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+@media (max-width:560px){.topbar .right{display:none}}
+.src{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px;margin-top:4px}
+.src b{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--forest)}
+.src a{color:var(--clay);word-break:break-word}
+.stat{display:grid;gap:6px}
+.stat .num{font-size:38px}
+.brief{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:0;border:1px solid var(--line);background:var(--surface)}
+.brief a{display:grid;gap:4px;padding:16px 18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-decoration:none;color:var(--fg)}
+.brief a:hover{background:var(--surface-2)}
+.brief i{font-style:normal;font-size:12.5px;color:var(--muted)}
+.brief b{font-weight:400;font-family:var(--display);text-transform:uppercase;letter-spacing:.06em;font-size:13px}
+.brief span{font-size:11px;color:var(--clay);letter-spacing:.12em;text-transform:uppercase}
+.plat dl{margin:0;display:grid;grid-template-columns:110px 1fr;gap:8px 14px;font-size:14.5px}
+.plat dt{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.plat dd{margin:0;min-width:0}
+.plat h3{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+@media (max-width:480px){.plat dl{grid-template-columns:1fr}}
+.cost{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--forest)}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:0;border:1px solid var(--line);background:var(--surface)}
+.flow div{padding:16px;border-right:1px solid var(--line);display:grid;gap:4px;align-content:start}
+.flow b{font:400 12.5px var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--clay)}
+.flow span{font-size:13.5px}
+.item .pls{display:flex;gap:3px;flex-wrap:wrap}
+.item{grid-template-columns:44px 92px 1fr}
+@media (max-width:420px){.item{grid-template-columns:40px 1fr}.item .pls{grid-column:2}.item .ti{grid-column:1/-1}}
+</style>
+</head>
+<body>
+
+
+<div class="topbar" lang="tr">
+  <div class="wrap">
+    <button class="menubtn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu"><i><span></span></i>Menü</button>
+    <a class="logo" href="#top">UAE<br>Grand<br>Tour</a>
+    <span class="right">Hazırlayan · PMA Partner</span>
+    <nav class="menu" id="menu" hidden aria-label="Bölümler">
+      <a href="#brief"><span>00</span>Brief ve ekip</a>
+      <a href="#kitle"><span>01</span>Pazar ve hedef kitle (kaynaklı)</a>
+      <a href="#kpi"><span>02</span>KPI'lar</a>
+      <a href="#pazarlama"><span>03</span>Nasıl pazarlarız</a>
+      <a href="#uretim"><span>04</span>İçeriği nasıl üretiriz</a>
+      <a href="#platform"><span>05</span>Platform platform</a>
+      <a href="#linkedin"><span>06</span>LinkedIn planı</a>
+      <a href="#kanal"><span>07</span>Kanal kanal · influencer</a>
+      <a href="#takvim"><span>08</span>Gün gün içerik planı</a>
+      <a href="#yayin"><span>09</span>Yayın planı</a>
+      <a href="#paid"><span>10</span>Paid teklif</a>
+      <a href="#arnold"><span>11</span>ARNOLD ve haftalık rapor</a>
+      <a href="#baslangic"><span>12</span>Başlangıç</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero" id="top" lang="tr">
+  <div class="wrap">
+    <p class="eyebrow">UAE Grand Tour · Medya planı · Kasım 2026 – Ocak 2027</p>
+    <h1>Bir ülke.<br>Yedi emirlik.<br><span>Üç ay.</span></h1>
+    <p class="lede">Organik (ücretsiz) içerik planı ve ayrı bir paid teklif. Platform platform, kanal kanal, gün gün. Küçük bir ekibin sürdürebileceği şekilde kurgulandı; her gönderi ARNOLD'da izlenir ve haftalık raporlanır.</p>
+    <p class="credit">Hazırlayan · <b>PMA Partner</b></p>
+  </div>
+  <span class="sun" aria-hidden="true"></span>
+  <svg class="dunes" viewBox="0 0 1440 260" preserveAspectRatio="none" aria-hidden="true">
+    <path class="d1" d="M0 170 C220 110 380 120 560 160 C760 205 900 120 1110 140 C1260 155 1360 130 1440 120 L1440 260 L0 260Z" opacity=".55"/>
+    <path class="d2" d="M0 200 C180 160 330 165 520 196 C700 225 860 170 1040 176 C1210 182 1330 205 1440 188 L1440 260 L0 260Z"/>
+    <path class="d3" d="M0 228 C240 206 420 214 640 232 C840 248 1020 214 1220 222 C1320 226 1390 236 1440 232 L1440 260 L0 260Z"/>
+    <path class="d4" d="M0 252 C400 240 900 262 1440 248 L1440 260 L0 260Z"/>
+  </svg>
+</header>
+
+<main lang="tr">
+<!-- 00 BRIEF -->
+<section class="block" id="brief"><div class="wrap">
+  <div class="head"><p class="eyebrow">00 · Brief ve ekip</p><h2>Talep edilen her başlık bu sunumda.</h2>
+  <p class="lede">E-postadaki brief'in maddeleri ve sunumdaki karşılıkları. Tıklayınca ilgili bölüme gider.</p></div>
+  <div class="brief">
+    <a href="#takvim"><span>Content / post plan</span><b>Gün gün içerik planı</b><i>20 Kas – 31 Oca, her gün, ARNOLD ID'li</i></a>
+    <a href="#yayin"><span>Media / publishing plan</span><b>Yayın planı</b><i>Haftalık ritim, saatler, platform başına sıklık</i></a>
+    <a href="#arnold"><span>Weekly activity report</span><b>Haftalık rapor</b><i>Her pazartesi 10:00, ARNOLD'dan</i></a>
+    <a href="#platform"><span>Platform by platform</span><b>Platform platform</b><i>Instagram, Facebook, TikTok, YouTube, Google, LinkedIn</i></a>
+    <a href="#kanal"><span>Channel by channel</span><b>Kanal kanal</b><i>Sahip olunan, sosyal, kazanılan (influencer), ücretli</i></a>
+    <a href="#paid"><span>Paid proposal</span><b>Paid teklif</b><i>Otel tekliflerimizdeki yapıda, 3 bütçe seviyesi</i></a>
+    <a href="#arnold"><span>ARNOLD</span><b>İzlenebilirlik</b><i>ID, durum, UTM, rapor</i></a>
+    <a href="#baslangic"><span>Kick-off</span><b>Toplantı ve başlangıç</b><i>İç toplantı Cum 13 Kas, yayın Cum 20 Kas</i></a>
+  </div>
+  <div class="grid g3" style="margin-top:22px">
+    <div class="card"><span class="tag">Ekip varsayımı</span><h3>Küçük ekip, net roller</h3><ul>
+      <li><b>İçerik ve sosyal medya sorumlusu</b> (tam zamanlı): plan, metin, yayın, topluluk, LinkedIn rutini</li>
+      <li><b>Tasarım ve video</b> (yarı zamanlı, haftada ~2 gün): şablonlar, Reel kurgusu</li>
+      <li><b>Hesap yöneticisi</b> (haftada ~1 gün): müşteri onayı, paid, haftalık rapor</li>
+    </ul></div>
+    <div class="card"><span class="tag">Kapasite</span><h3>Haftada 7 içerik, ~25 yayın</h3><p>Her hafta 3 dikey video, 2 carousel, 2 LinkedIn gönderisi üretilir. Aynı içerik birden fazla platformda yayınlanır. Böylece 7 üretimden yaklaşık 25 yayın çıkar.</p></div>
+    <div class="card"><span class="tag">Araçlar · ücretsiz</span><h3>Bütçe gerektirmeyen yığın</h3><p>Meta Business Suite (IG + FB planlama), TikTok ve LinkedIn'in kendi zamanlayıcıları, Canva şablonları, CapCut, Google Business, GA4, Brevo ücretsiz bülten paketi, ARNOLD.</p></div>
+  </div>
+</div></section>
+
+<!-- 01 KITLE -->
+<section class="block" id="kitle"><div class="wrap">
+  <div class="head"><p class="eyebrow">01 · Pazar ve hedef kitle</p><h2>Veri ne diyor, biz ne yapıyoruz.</h2>
+  <p class="lede">Hedef kitle ve zamanlama kararları aşağıdaki verilere dayanıyor. Her verinin altında kaynağı ve bu planda neden kullandığımız yazıyor.</p></div>
+  <div class="grid g3">
+    <div class="card stat"><span class="num">18,72M</span><h3>Dubai'ye gelen uluslararası ziyaretçi (2024)</h3><p class="small">2025'te 19,59M (+%5). En büyük kaynak bölge Batı Avrupa, ardından Körfez, Güney Asya, BDT/Doğu Avrupa.</p>
+      <div class="src"><b>Kaynak</b><span>Dubai Department of Economy and Tourism (DET), <a href="https://en.wikipedia.org/wiki/Tourism_in_Dubai" target="_blank" rel="noopener">Tourism in Dubai</a> derlemesi üzerinden</span><b>Neden</b><span>Pazar büyüyor ve en büyük kaynak Batı Avrupa. Birincil hedefimiz bu yüzden İngiltere, Almanya, İtalya, İsviçre, Hollanda.</span></div></div>
+    <div class="card stat"><span class="num">3,7 gece</span><h3>Dubai'de ortalama kalış (2025)</h3><p class="small">Bizim rotalarımız 8–12 gün.</p>
+      <div class="src"><b>Kaynak</b><span><a href="https://en.wikipedia.org/wiki/Tourism_in_Dubai" target="_blank" rel="noopener">Tourism in Dubai</a> (DET verileri)</span><b>Neden</b><span>Ortalama ziyaretçi kısa kalıyor. Hedefimiz uzun tatil yapan Avrupalı ve "Dubai'den sonra nereye?" diye soran kişi. Mesaj: kalışı uzat, diğer altı emirliği de gör.</span></div></div>
+    <div class="card stat"><span class="num">%80,7</span><h3>Dubai otel doluluğu (2025)</h3><p class="small">Aralık 2025'te %84'ün üzerinde.</p>
+      <div class="src"><b>Kaynak</b><span><a href="https://en.wikipedia.org/wiki/Tourism_in_Dubai" target="_blank" rel="noopener">Tourism in Dubai</a> (DET verileri)</span><b>Neden</b><span>Aralık en yoğun ay. Organik içerik Aralık'ta görünürlük kurar, satış ve paid ağırlığı Ocak'a, yani bahar rezervasyonlarına kayar.</span></div></div>
+    <div class="card stat"><span class="num">23,9°C</span><h3>Dubai Ocak ortalama en yüksek sıcaklık</h3><p class="small">Ağustos'ta 41,3°C.</p>
+      <div class="src"><b>Kaynak</b><span>Dubai Meteoroloji Ofisi, 1977–2015 normalleri, <a href="https://en.wikipedia.org/wiki/Climate_of_the_United_Arab_Emirates" target="_blank" rel="noopener">Climate of the UAE</a></span><b>Neden</b><span>Kasım–Mart açık hava sezonu. Çöl, dağ ve kıyı rotaları bu dönemde satılır. Planın Kasım–Ocak olması bu yüzden doğru zaman.</span></div></div>
+    <div class="card stat"><span class="num">1,37M</span><h3>BAE'ye gelen İngiliz ziyaretçi (2019)</h3><p class="small">Hindistan 2,86M ve Umman 2,81M ile ilk iki sırada.</p>
+      <div class="src"><b>Kaynak</b><span>Uyruğa göre geliş tablosu, <a href="https://en.wikipedia.org/wiki/Tourism_in_the_United_Arab_Emirates" target="_blank" rel="noopener">Tourism in the UAE</a></span><b>Neden</b><span>İngiltere en büyük Avrupa pazarı: birincil hedef. Hindistan ve Körfez hacimli ama kısa kalışlı; aile ve kısa rotalarla ikincil hedef.</span></div></div>
+    <div class="card stat"><span class="num">%12</span><h3>Turizmin BAE ekonomisindeki payı (2023)</h3><p class="small">Yaklaşık 220 milyar AED, 809 bin istihdam. Hedef 2030'da 30,9M turist.</p>
+      <div class="src"><b>Kaynak</b><span>BAE Ekonomi Bakanlığı (Mayıs 2024), <a href="https://en.wikipedia.org/wiki/Tourism_in_the_United_Arab_Emirates" target="_blank" rel="noopener">Tourism in the UAE</a></span><b>Neden</b><span>Devlet turizmi destekliyor; resmi kampanyalar (Ulusal Gün, festivaller) bizim içeriklerimiz için ücretsiz görünürlük fırsatı.</span></div></div>
+  </div>
+
+  <div class="tbl" style="margin-top:22px"><table>
+    <thead><tr><th>Platform (BAE)</th><th class="r">Reklam erişimi</th><th>Bizim için anlamı</th></tr></thead>
+    <tbody>
+      <tr><td><span class="pl TT">TT</span> TikTok</td><td class="r">11,3M (18+)</td><td>Keşif kanalı; aynı videolar düşük maliyetle büyük erişim</td></tr>
+      <tr><td><span class="pl FB">FB</span> Facebook</td><td class="r">9,7M</td><td>40+ yaş ve Avrupa kitlesi; Instagram ile birlikte yönetilir</td></tr>
+      <tr><td><span class="pl LI">LI</span> LinkedIn</td><td class="r">9,4M üye</td><td>BAE'deki acente ve DMC ağı çok yoğun; B2B için ana kanal</td></tr>
+      <tr><td><span class="pl YT">YT</span> YouTube</td><td class="r">8,25M</td><td>Araştırma ve uzun video; Shorts ile tekrar kullanım</td></tr>
+      <tr><td><span class="pl IG">IG</span> Instagram</td><td class="r">7,6M</td><td>Seyahatte vitrin; ana organik kanal</td></tr>
+    </tbody>
+  </table></div>
+  <div class="src" style="margin-top:8px"><b>Kaynak</b><span>Kepios / DataReportal, <a href="https://datareportal.com/reports/digital-2025-united-arab-emirates" target="_blank" rel="noopener">Digital 2025: United Arab Emirates</a>, platformların reklam araçları (Ocak 2025)</span><b>Neden</b><span>BAE'de neredeyse herkes sosyal medyada. Bu rakamlar BAE içini gösterir: Körfez ve yerleşik kitle ile B2B için doğrudan, Avrupa kitlesi için ise hangi platformların aktif olduğunun göstergesi.</span></div>
+
+  <div class="tbl" style="margin-top:28px"><table>
+    <thead><tr><th>Hedef kitle</th><th>Profil</th><th>Rota</th><th>Kanal</th><th>Neden bu kitle</th></tr></thead>
+    <tbody>
+      <tr><td><b>İlk kez gelen çiftler</b></td><td>35–60 yaş, Batı Avrupa, kültür ve konfor</td><td>Grand Classic, Culture & Heritage</td><td>IG, FB, Google</td><td>En büyük kaynak bölge; site minimum 2 yetişkinle satıyor</td></tr>
+      <tr><td><b>Aileler</b></td><td>Çocuklu, okul tatiline göre plan</td><td>Grand Family, City & Beach</td><td>IG, FB, YouTube</td><td>Sitede ayrı aile rotası var (Yas, Aquaventure, Al Ain Zoo)</td></tr>
+      <tr><td><b>Macera arayanlar</b></td><td>25–45 yaş, video ile araştıran</td><td>Grand Adventure</td><td>TikTok, Reels</td><td>TikTok en geniş erişimli platform</td></tr>
+      <tr><td><b>Wellness ve kış güneşi</b></td><td>40+ yaş, yüksek gelir</td><td>Grand Wellness, Grand Beach</td><td>IG, FB</td><td>Kasım–Mart ılık hava; uzun kalış</td></tr>
+      <tr><td><b>Doğa ve eko gezgin</b></td><td>Kuzey Avrupa, sürdürülebilirlik</td><td>Grand Eco Friendly</td><td>IG, YouTube</td><td>Sitede mangrov ve rezerv rotası mevcut</td></tr>
+      <tr><td><b>Acenteler (B2B)</b></td><td>Avrupa, Körfez, Hindistan, Türkiye acenteleri</td><td>Tüm rotalar</td><td>LinkedIn, B2B bülten</td><td>Küçük ekip için en verimli satış kanalı: bir acente, çok misafir</td></tr>
+    </tbody>
+  </table></div>
+  <div class="src" style="margin-top:8px"><b>Kaynak</b><span>Rota ve ürün yapısı: <a href="https://uaegrandtour.com/en" target="_blank" rel="noopener">uaegrandtour.com</a> (10 rota, 8 deneyim teması)</span><b>Risk</b><span>2026 başındaki bölgesel çatışma döneminde iptaller yaşandığı haberlere yansıdı (The National, Mart 2026). İçeriklerde güven unsurları (yerel ofis, özel transfer, esnek iptal) görünür olmalı.</span></div>
+</div></section>
+
+<!-- 02 KPI -->
+<section class="block" id="kpi"><div class="wrap">
+  <div class="head"><p class="eyebrow">02 · KPI'lar</p><h2>Ne ölçüyoruz, neden ölçüyoruz.</h2>
+  <p class="lede">Hesaplar sıfırdan açıldığı için hedefler kümülatif ve gerçekçi tutuldu. İlk hafta başlangıç verileri ARNOLD'a girilir; hedefler Aralık başında gerekirse güncellenir.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>KPI</th><th>Neden önemli</th><th>Ölçüm aracı</th><th class="r">Kasım</th><th class="r">Aralık</th><th class="r">Ocak</th></tr></thead>
+    <tbody>
+      <tr><td colspan="6" style="background:var(--surface-2)"><span class="tag">Görünürlük</span></td></tr>
+      <tr><td><b>Toplam organik erişim</b></td><td>Marka yeni; önce bilinmesi gerekiyor</td><td>Meta, TikTok, YT panelleri</td><td class="r">60K</td><td class="r">150K</td><td class="r">250K</td></tr>
+      <tr><td><b>Instagram takipçi (kümülatif)</b></td><td>Tekrar ulaşabileceğimiz kitle</td><td>Meta Business Suite</td><td class="r">500</td><td class="r">1.200</td><td class="r">2.000</td></tr>
+      <tr><td><b>Google Business görüntüleme</b></td><td>"UAE tour" arayanların bizi bulması</td><td>Business Profile</td><td class="r">1.000</td><td class="r">2.500</td><td class="r">4.000</td></tr>
+      <tr><td colspan="6" style="background:var(--surface-2)"><span class="tag">İlgi</span></td></tr>
+      <tr><td><b>Etkileşim oranı</b></td><td>İçeriğin işe yarayıp yaramadığının göstergesi</td><td>Erişim bazlı, ARNOLD</td><td class="r">%3+</td><td class="r">%4+</td><td class="r">%4+</td></tr>
+      <tr><td><b>Kaydetme + paylaşım</b></td><td>Seyahat planlayanın en güçlü sinyali</td><td>Meta, TikTok</td><td class="r">150</td><td class="r">500</td><td class="r">900</td></tr>
+      <tr><td><b>Sosyalden site oturumu</b></td><td>Sosyalin satışa köprüsü</td><td>GA4 + UTM</td><td class="r">300</td><td class="r">800</td><td class="r">1.500</td></tr>
+      <tr><td colspan="6" style="background:var(--surface-2)"><span class="tag">Talep</span></td></tr>
+      <tr><td><b>Nitelikli talep (form + WhatsApp)</b></td><td>Asıl iş sonucu</td><td>GA4 olayı + ARNOLD lead</td><td class="r">5</td><td class="r">15</td><td class="r">30</td></tr>
+      <tr><td><b>Bülten abonesi (kümülatif)</b></td><td>Sahip olduğumuz, reklamsız kitle</td><td>Brevo</td><td class="r">100</td><td class="r">300</td><td class="r">600</td></tr>
+      <tr><td><b>Google yorumu (kümülatif)</b></td><td>Güven ve harita sıralaması</td><td>Business Profile</td><td class="r">5</td><td class="r">10</td><td class="r">20</td></tr>
+      <tr><td colspan="6" style="background:var(--surface-2)"><span class="tag">B2B · LinkedIn</span></td></tr>
+      <tr><td><b>Acente bağlantısı (kümülatif)</b></td><td>Satış ağının büyüklüğü</td><td>LinkedIn, ARNOLD</td><td class="r">60</td><td class="r">150</td><td class="r">250</td></tr>
+      <tr><td><b>Acente görüşmesi</b></td><td>Satışa en yakın B2B adımı</td><td>ARNOLD</td><td class="r">2</td><td class="r">5</td><td class="r">8</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<!-- 03 PAZARLAMA -->
+<section class="block" id="pazarlama"><div class="wrap">
+  <div class="head"><p class="eyebrow">03 · Nasıl pazarlarız</p><h2>Dubai'yi biliyorlar. Diğer altısını biz anlatacağız.</h2></div>
+  <div class="grid g3">
+    <div class="card"><h3>Ana mesaj</h3><p><b>One Country. Seven Emirates. One Journey.</b> Ziyaretçi Dubai'de ortalama 3,7 gece kalıyor. Biz aynı ülkede 8–12 günlük, planı hazır, tüm emirlikleri kapsayan bir yolculuk sunuyoruz.</p></div>
+    <div class="card"><h3>Emirlik emirlik anlatım</h3><p>Her hafta bir emirlik ve sitedeki sloganı: Dubai "Future in motion", Abu Dhabi "Monumental calm", Sharjah "Stories kept alive", Ras Al Khaimah "Above the horizon", Fujairah "Where mountains meet sea".</p></div>
+    <div class="card"><h3>Duygu ile satış</h3><p>Site rotaları duyguya göre paketliyor: macera, huzur, aile, kültür, doğa. İçeriklerde "Nasıl hissetmek istersin?" sorusu ana kurgu.</p></div>
+    <div class="card"><h3>Güven</h3><p>Dubai ofisi, yerel DMC, 4–5 yıldızlı oteller, özel araç ve rehber. Rehber videoları ve misafir yorumlarıyla görünür kılınır.</p></div>
+    <div class="card"><h3>Takvim anları</h3><p>Anma Günü (30 Kas), Ulusal Gün (2 Ara), yılbaşı, F1 Abu Dhabi ve Dubai Shopping Festival (tarihler teyit edilecek), Ocak erken rezervasyon dönemi.</p></div>
+    <div class="card"><h3>B2C + B2B birlikte</h3><p>Sosyal medya son kullanıcıda talep yaratır; LinkedIn aynı içerikleri acentelere satış aracı olarak sunar. Küçük ekip için iki kanal, tek içerik havuzu.</p></div>
+  </div>
+</div></section>
+
+<!-- 04 URETIM -->
+<section class="block" id="uretim"><div class="wrap">
+  <div class="head"><p class="eyebrow">04 · İçeriği nasıl üretiriz</p><h2>Bir kez üret, beş yerde yayınla.</h2>
+  <p class="lede">Küçük ekip için kural: toplu üretim, hazır şablon, çoklu yayın. Haftada 7 içerik üretilir, platformlara uyarlanarak ~25 yayına dönüşür.</p></div>
+  <div class="flow" style="margin-bottom:22px">
+    <div><b>Pazartesi</b><span>Haftanın planı ARNOLD'da; brief'ler yazılır</span></div>
+    <div><b>Salı</b><span>Toplu üretim: 3 video, 2 carousel (Canva + CapCut)</span></div>
+    <div><b>Çarşamba</b><span>Metinler, LinkedIn gönderileri, bülten</span></div>
+    <div><b>Perşembe</b><span>Müşteri onayı (24–48 saat)</span></div>
+    <div><b>Cuma</b><span>Gelecek hafta zamanlanır; rapor verisi toplanır</span></div>
+  </div>
+  <div class="grid g2">
+    <div class="card"><h3>Görüntü kaynakları</h3><ul>
+      <li><b>Müşteri arşivi:</b> sitedeki film, rota fotoğrafları, otel görselleri</li>
+      <li><b>Rehberler:</b> telefonla dikey çekim brief'i ("her turda 3 kısa klip")</li>
+      <li><b>Partner oteller ve DMC:</b> basın kitleri, izinli görseller</li>
+      <li><b>Misafirler (UGC):</b> izinli paylaşımlar, etiketlenen içerikler</li>
+      <li><b>Influencer içerikleri:</b> kullanım hakkı alınarak</li>
+      <li><b>Son çare:</b> lisanslı stok görüntü</li>
+    </ul></div>
+    <div class="card"><h3>Formatlar ve tarifler</h3><ul>
+      <li><b>Dikey video (7–20 sn):</b> ilk 2 saniyede kanca ("Dubai'den 1 saat uzakta..."), ekranda yazı, sonda net çağrı</li>
+      <li><b>Carousel (6–8 kare):</b> kapak, gün gün rota, kime uygun, "Plan your journey"</li>
+      <li><b>Story:</b> anket, quiz, soru kutusu, link sticker</li>
+      <li><b>LinkedIn doküman:</b> carousel'in PDF hali, acente diliyle</li>
+      <li><b>Ton:</b> sitenin sesi; kısa, duyusal, sakin. Dil İngilizce</li>
+    </ul></div>
+    <div class="card"><h3>Tekrar eden seriler</h3><ul>
+      <li><b>Bir Emirlik, Bir Hafta:</b> takvimin omurgası</li>
+      <li><b>11 Gün, 60 Saniye:</b> rotayı bir dakikada anlatan video</li>
+      <li><b>Choose a Feeling:</b> Story quiz'i ile rota önerisi</li>
+      <li><b>Rehberin Köşesi:</b> yerel bilgi, yüz gösteren içerik</li>
+      <li><b>Planlama Cuması:</b> vize, hava, ne giyilir</li>
+    </ul></div>
+    <div class="card"><h3>Bir videonun yolculuğu</h3><p>Pazartesi Reel'i aynı gün Instagram, Facebook, TikTok ve YouTube Shorts'ta yayınlanır. Perşembe LinkedIn'de acente açıklamasıyla tekrar kullanılır. Ayın sonunda bültene girer. En iyi performans gösteren video paid reklama aday olur.</p></div>
+  </div>
+</div></section>
+
+<!-- 05 PLATFORM -->
+<section class="block" id="platform"><div class="wrap">
+  <div class="head"><p class="eyebrow">05 · Platform platform</p><h2>Her platformun bir görevi var.</h2>
+  <p class="lede">Saatler BAE saati (GST). 19:00 Körfez akşamı ve Avrupa öğleden sonrası, 12:00 Avrupa sabahı.</p></div>
+  <div class="grid g2">
+    <div class="card plat"><h3><span class="pl IG">IG</span>Instagram</h3><dl>
+      <dt>Görev</dt><dd>Vitrin ve ana büyüme kanalı</dd>
+      <dt>Sıklık</dt><dd>3 Reel + 2 carousel / hafta, her gün Story</dd>
+      <dt>Profil</dt><dd>Bio'da "Plan your journey" linki, 7 emirlik öne çıkanları</dd>
+      <dt>KPI</dt><dd>Erişim, kaydetme, profil → site tıklaması</dd>
+    </dl></div>
+    <div class="card plat"><h3><span class="pl FB">FB</span>Facebook</h3><dl>
+      <dt>Görev</dt><dd>40+ yaş ve Avrupa kitlesi, reklam altyapısı</dd>
+      <dt>Sıklık</dt><dd>Instagram içerikleri Meta Business Suite'ten birlikte yayınlanır (ek iş yok)</dd>
+      <dt>KPI</dt><dd>Erişim, link tıklaması</dd>
+    </dl></div>
+    <div class="card plat"><h3><span class="pl TT">TT</span>TikTok</h3><dl>
+      <dt>Görev</dt><dd>Keşif ve genç-orta yaş macera kitlesi</dd>
+      <dt>Sıklık</dt><dd>3 video / hafta (Instagram videolarının TikTok sesleriyle uyarlanmış hali)</dd>
+      <dt>KPI</dt><dd>İzlenme süresi, paylaşım, takipçi</dd>
+    </dl></div>
+    <div class="card plat"><h3><span class="pl YT">YT</span>YouTube</h3><dl>
+      <dt>Görev</dt><dd>Araştırma aşaması ("UAE 10 day itinerary")</dd>
+      <dt>Sıklık</dt><dd>2 Short / hafta (aynı videolar); ayda 1 uzun rota videosu</dd>
+      <dt>KPI</dt><dd>İzlenme, abone, siteye tıklama</dd>
+    </dl></div>
+    <div class="card plat"><h3><span class="pl GB">GB</span>Google Business ve arama</h3><dl>
+      <dt>Görev</dt><dd>Google ve Haritalar'da bulunmak, yorum toplamak</dd>
+      <dt>Sıklık</dt><dd>1 gönderi / hafta, fotoğraf güncellemesi, her yoruma yanıt</dd>
+      <dt>KPI</dt><dd>Görüntüleme, arama, yorum sayısı</dd>
+    </dl></div>
+    <div class="card plat"><h3><span class="pl EM">EM</span>Bülten</h3><dl>
+      <dt>Görev</dt><dd>Sahip olduğumuz kitle, talebe dönüşüm</dd>
+      <dt>Sıklık</dt><dd>2 haftada 1 B2C, ayda 1 B2B</dd>
+      <dt>KPI</dt><dd>Abone, açılma, tıklama, talep</dd>
+    </dl></div>
+  </div>
+</div></section>
+
+<!-- 06 LINKEDIN -->
+<section class="block" id="linkedin"><div class="wrap">
+  <div class="head"><p class="eyebrow">06 · LinkedIn planı</p><h2>Bir acente, yüzlerce misafir.</h2>
+  <p class="lede">Küçük ekip için en verimli satış kanalı. BAE'de 9,4 milyon LinkedIn üyesi var ve turizm ağı yoğun. Amaç, rotalarımızı acentelerin satabileceği hazır ürün olarak konumlamak.</p></div>
+  <div class="grid g2">
+    <div class="card"><h3>İki hesap birlikte çalışır</h3><ul>
+      <li><b>Şirket sayfası:</b> rotalar, sezon bilgisi, kurumsal güven. Haftada 2 gönderi</li>
+      <li><b>Kurucu veya satış yöneticisinin kişisel profili:</b> kişisel profiller şirket sayfalarından çok daha fazla erişim alır. Haftada 2 gönderi, birinin kendi deneyimi olması önerilir</li>
+    </ul></div>
+    <div class="card"><h3>Günlük 30 dakikalık rutin</h3><ul>
+      <li>10 bağlantı isteği: hedef pazarlarda acente sahipleri, ürün müdürleri, MICE planlayıcıları</li>
+      <li>5 sektör gönderisine yorum</li>
+      <li>Kabul edenlere kısa tanışma mesajı (satış değil, rota PDF'i teklifi)</li>
+      <li>Her temas ARNOLD'da B2B lead olarak kaydedilir</li>
+    </ul></div>
+    <div class="card"><h3>İçerik fikirleri</h3><ul>
+      <li>Rota PDF'leri doküman gönderisi olarak: "Grand Classic: 11 gün, 7 emirlik"</li>
+      <li>"Müşterileriniz Dubai'den sonra nereye gidebilir?" serisi</li>
+      <li>Operasyonun arkası: transfer, rehber, otel seçimi</li>
+      <li>Sezon müsaitlikleri ve grup kapasitesi</li>
+      <li>Misafir ve acente referansları</li>
+      <li>Aylık LinkedIn bülteni: "Seven Emirates Brief"</li>
+    </ul></div>
+    <div class="card"><h3>Ocak'ta tek etkinlik</h3><p>Acentelere 30 dakikalık çevrimiçi sunum: <b>"Selling the UAE beyond Dubai"</b>. LinkedIn Etkinlik olarak duyurulur, katılanlara net fiyat listesi ve rota PDF'leri gönderilir.</p><p class="small">Bütçe onaylanırsa: Sales Navigator ile daha isabetli acente araması ve hedefli LinkedIn reklamı.</p></div>
+  </div>
+</div></section>
+
+<!-- 07 KANAL -->
+<section class="block" id="kanal"><div class="wrap">
+  <div class="head"><p class="eyebrow">07 · Kanal kanal</p><h2>Sahip olunan, sosyal, kazanılan, ücretli.</h2></div>
+  <div class="grid g4">
+    <div class="card"><span class="tag">Owned</span><h3>Sahip olunan</h3><ul><li>Web sitesi ve rota sayfaları</li><li>Bülten ve rota rehberi PDF'i</li><li>WhatsApp Business</li><li>Google Business Profile</li></ul></div>
+    <div class="card"><span class="tag">Shared</span><h3>Sosyal</h3><ul><li>Instagram, Facebook, TikTok, YouTube</li><li>LinkedIn (B2B)</li><li>Yorum ve DM yanıtı 09–18 GST, 2 saat içinde</li></ul></div>
+    <div class="card"><span class="tag">Earned</span><h3>Kazanılan</h3><ul><li>Influencer iş birlikleri</li><li>Google ve TripAdvisor yorumları</li><li>Partner otel ve DMC paylaşımları</li></ul></div>
+    <div class="card"><span class="tag">Paid</span><h3>Ücretli</h3><ul><li>Meta, Google, TikTok, LinkedIn</li><li>Organik kazananları büyütme</li></ul><a class="small" href="#paid">Paid teklife git →</a></div>
+  </div>
+  <div class="grid g2" style="margin-top:22px">
+    <div class="card"><h3>Influencer programı</h3><ul>
+      <li><b>Mikro (10K–100K):</b> ayda 1–2 iş birliği, yüksek etkileşim, düşük maliyet</li>
+      <li><b>Orta (100K–500K):</b> Ocak'ta 1 isim, birincil pazardan (İngiltere veya Almanya)</li>
+      <li><b>Nano ve misafirler:</b> ürün karşılığı içerik, reklam kreatifi kaynağı</li>
+      <li><b>Seçim:</b> takipçilerin en az %40'ı hedef pazarda, etkileşim %3 üzeri, sahte takipçi kontrolü</li>
+      <li><b>Sözleşme:</b> teslimatlar, kişiye özel kod ve UTM linki, 6 ay reklam kullanım hakkı</li>
+    </ul></div>
+    <div class="card"><h3>Influencer takibi (ARNOLD kartı)</h3>
+      <div class="tbl" style="border:0"><table>
+        <thead><tr><th>Aşama</th><th>Takip edilen</th></tr></thead>
+        <tbody>
+          <tr><td><b>Seçim</b></td><td>Takipçi, etkileşim, kitle ülkesi, ücret</td></tr>
+          <tr><td><b>Anlaşma</b></td><td>Teslimatlar, tarih, kod, link, kullanım hakkı</td></tr>
+          <tr><td><b>Yayın</b></td><td>Linkler, tarih, etiket kontrolü</td></tr>
+          <tr><td><b>7. gün</b></td><td>Erişim, izlenme, tıklama, yeni takipçi</td></tr>
+          <tr><td><b>30. gün</b></td><td>Kod kullanımı, talep, rezervasyon, maliyet</td></tr>
+          <tr><td><b>Karar</b></td><td>Tekrar çalışma, içeriği reklamda kullanma</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 08 TAKVIM -->
+<section class="block" id="takvim"><div class="wrap">
+  <div class="head"><p class="eyebrow">08 · İçerik ve gönderi planı · gün gün</p><h2>20 Kasım'dan 31 Ocak'a, her gün.</h2>
+  <p class="lede">Her satır bir içerik ve yayınlanacağı platformlar. ID'ler ARNOLD formatında. Ay ve platform seçip CSV olarak kopyalayın, ARNOLD'a aktarın.</p></div>
+  <div class="tbl" style="margin-bottom:24px"><table id="weeksTable">
+    <thead><tr><th>Hafta</th><th>Tarih</th><th>Tema / emirlik</th><th>Odak rota</th><th>Özel gün</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Ay" id="monthSeg">
+      <button id="m-11" data-m="11" aria-pressed="true">Kasım</button>
+      <button id="m-12" data-m="12" aria-pressed="false">Aralık</button>
+      <button id="m-1" data-m="1" aria-pressed="false">Ocak</button>
+      <button id="m-all" data-m="all" aria-pressed="false">Tümü</button>
+    </div>
+    <div class="chips" id="platChips" aria-label="Platform filtresi"></div>
+    <button class="pill" id="copyCsv" type="button">ARNOLD için CSV kopyala</button>
+  </div>
+  <div class="summary" id="calSummary"></div>
+  <div class="cal" id="cal"></div>
+</div></section>
+
+<!-- 09 YAYIN -->
+<section class="block" id="yayin"><div class="wrap">
+  <div class="head"><p class="eyebrow">09 · Medya ve yayın planı</p><h2>Her hafta aynı ritim.</h2>
+  <p class="lede">Sabit ritim küçük ekibin en büyük yardımcısı. Sadece tema değişir; ne zaman ne çıkacağı herkes için bellidir.</p></div>
+  <div class="tbl"><table class="matrix">
+    <thead><tr><th>GST</th><th>Pzt</th><th>Sal</th><th>Çar</th><th>Per</th><th>Cum</th><th>Cmt</th><th>Paz</th></tr></thead>
+    <tbody>
+      <tr><td><b>10:00</b></td><td><span class="pl LI">LI</span> Kişisel profil</td><td></td><td><span class="pl EM">EM</span> Bülten (2 haftada 1)</td><td><span class="pl LI">LI</span> Şirket sayfası</td><td></td><td></td><td></td></tr>
+      <tr><td><b>11:00–12:30</b></td><td><span class="pl IG">IG</span> Story anket</td><td></td><td><span class="pl GB">GB</span> Google gönderisi</td><td><span class="pl IG">IG</span> Story soru</td><td></td><td><span class="pl IG">IG</span><span class="pl TT">TT</span> Video 3</td><td></td></tr>
+      <tr><td><b>17:00</b></td><td></td><td></td><td></td><td></td><td><span class="pl IG">IG</span><span class="pl FB">FB</span> Carousel 2</td><td></td><td><span class="pl IG">IG</span> Story özet</td></tr>
+      <tr><td><b>19:00</b></td><td><span class="pl IG">IG</span><span class="pl FB">FB</span><span class="pl TT">TT</span><span class="pl YT">YT</span> Video 1</td><td><span class="pl IG">IG</span><span class="pl FB">FB</span> Carousel 1</td><td><span class="pl IG">IG</span><span class="pl FB">FB</span><span class="pl TT">TT</span><span class="pl YT">YT</span> Video 2</td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table></div>
+  <div class="tbl" style="margin-top:20px"><table>
+    <thead><tr><th>Platform</th><th class="r">Yayın / hafta</th><th class="r">3 ay toplam</th><th>Not</th></tr></thead>
+    <tbody id="volRows"></tbody>
+  </table></div>
+</div></section>
+
+<!-- 10 PAID -->
+<section class="block" id="paid"><div class="wrap">
+  <div class="head"><p class="eyebrow">10 · Paid teklif</p><h2>Organik kazananları reklamla büyütmek.</h2>
+  <p class="lede">Otel tekliflerimizdeki yapı: huni bazlı kampanyalar, üç bütçe seviyesi, haftalık optimizasyon. Aralık'ta sezon yoğun olduğu için bütçenin ağırlığı Ocak'taki bahar rezervasyon dönemine verilir.</p></div>
+  <div class="funnel" style="margin-bottom:26px">
+    <div><b>Farkındalık</b><p>Meta ve TikTok video: "11 Gün, 60 Saniye" ve emirlik videoları. Hedef pazarlarda seyahat ilgi alanları.</p></div>
+    <div><b>Değerlendirme</b><p>Videoyu izleyenlere rota carousel'leri; rota rehberi PDF'ine yönlendirme.</p></div>
+    <div><b>Dönüşüm</b><p>Google arama: "UAE tour package", "Dubai Abu Dhabi 10 day tour". Meta lead formu ve WhatsApp.</p></div>
+    <div><b>Yeniden gösterim</b><p>Site ziyaretçisi ve abonelere yorumlar ve "24 saatte kişiye özel fiyat".</p></div>
+  </div>
+  <div class="tiers" id="tiers" role="group" aria-label="Bütçe seviyesi"></div>
+  <div class="grid g2" style="margin-top:20px">
+    <div class="tbl"><table><thead><tr><th>Kanal</th><th class="r">Pay</th><th class="r">Aylık</th><th>Rol</th></tr></thead><tbody id="splitRows"></tbody></table></div>
+    <div class="tbl"><table><thead><tr><th>Ay</th><th class="r">Ağırlık</th><th class="r">Bütçe</th><th class="r">Tahmini talep</th></tr></thead><tbody id="flightRows"></tbody></table></div>
+  </div>
+  <div class="grid g3" style="margin-top:20px">
+    <div class="card"><h3>Hedef pazarlar</h3><p>İngiltere, Almanya, İtalya, İsviçre, Hollanda, Suudi Arabistan, Kuveyt. Hindistan ve Türkiye acente odaklı.</p></div>
+    <div class="card"><h3>Paid KPI'ları</h3><p>Gösterim maliyeti (CPM), tıklama oranı (CTR), talep başı maliyet (CPL), rezervasyon geri bildirimiyle reklam getirisi (ROAS). Haftalık raporda yer alır.</p></div>
+    <div class="card"><h3>Ön koşullar</h3><p>Meta Pixel ve Conversions API, GA4 dönüşümleri, gerçek talep formu, başlangıç fiyatı veya teklif sözü. Ölçüm hazır olmadan reklam açılmaz.</p></div>
+  </div>
+</div></section>
+
+<!-- 11 ARNOLD -->
+<section class="block" id="arnold"><div class="wrap">
+  <div class="head"><p class="eyebrow">11 · ARNOLD ve haftalık aktivite raporu</p><h2>Her şey izlenir, her pazartesi raporlanır.</h2></div>
+  <div class="status" style="margin-bottom:20px">
+    <div><b>1 · Plan</b><span>Takvimden aktarım</span></div>
+    <div><b>2 · Üretim</b><span>Tasarım, video, metin</span></div>
+    <div><b>3 · Onay</b><span>Müşteri, 48 saat</span></div>
+    <div><b>4 · Zamanlandı</b><span>Platformda</span></div>
+    <div><b>5 · Yayında</b><span>Link eklenir</span></div>
+    <div><b>6 · Raporlandı</b><span>48 saat metrikleri</span></div>
+  </div>
+  <div class="grid g2">
+    <div class="card"><h3>Adlandırma</h3>
+      <p>İçerik ID: <code>UGT-261123-V1</code> <span class="small">(tarih, V video / C carousel / L LinkedIn / S story / E bülten)</span></p>
+      <p>Yayın ID: <code>UGT-261123-V1-IG</code> <span class="small">(aynı içeriğin her platformdaki kaydı)</span></p>
+      <p>UTM: <code>utm_source=instagram&amp;utm_medium=organic_social&amp;utm_campaign=ugt_w1_dubai&amp;utm_content=UGT-261123-V1</code></p>
+      <p class="small">Lead'ler (form, WhatsApp, LinkedIn, influencer kodu) aynı ID ile ARNOLD'a girilir; hangi içeriğin talep getirdiği görülür.</p>
+    </div>
+    <div class="card"><h3>Haftalık rapor içeriği</h3><ul>
+      <li>Plan / gerçekleşen yayın sayısı ve sapma nedeni</li>
+      <li>Platform metrikleri (aşağıdaki tablo)</li>
+      <li>Haftanın en iyi 3 içeriği ve neden çalıştığı</li>
+      <li>Lead'ler: kaynak, rota, durum</li>
+      <li>LinkedIn: bağlantı, yanıt, görüşme</li>
+      <li>Influencer: yayınlar ve 7/30 gün sonuçları</li>
+      <li>Paid (onaylanırsa): harcama, CPM, CTR, CPL</li>
+      <li>Gelecek haftanın 3 aksiyonu</li>
+    </ul></div>
+  </div>
+  <div class="toolbar" style="margin-top:22px"><label for="weekSel" class="small">Hafta</label><select id="weekSel"></select><span class="small" id="repDate"></span></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Platform</th><th class="r">Plan</th><th class="r">Gerçekleşen</th><th class="r">Erişim</th><th class="r">Etkileşim %</th><th class="r">Site tıklaması</th><th class="r">Lead</th></tr></thead>
+    <tbody id="repRows"></tbody>
+  </table></div>
+</div></section>
+
+<!-- 12 BASLANGIC -->
+<section class="block" id="baslangic"><div class="wrap">
+  <div class="head"><p class="eyebrow">12 · Başlangıç</p><h2>Yarın iç toplantı, cuma başlıyoruz.</h2></div>
+  <div class="grid g2">
+    <div class="steps">
+      <div class="step now"><span class="when">Cum 13 Kas · 60 dk</span><h3>İç ekip toplantısı</h3><p class="small">Brief ve hedef kitle (10) · KPI'lar (5) · içerik üretim akışı (10) · takvim ve roller (10) · LinkedIn rutini (5) · ARNOLD kurulumu (10) · paid teklif (5) · aksiyonlar (5)</p></div>
+      <div class="step"><span class="when">13–17 Kas</span><h3>Hesaplar ve altyapı</h3><p class="small">Instagram, Facebook, TikTok, YouTube, LinkedIn, Google Business, WhatsApp Business, GA4, bülten formu. Başlangıç verileri ARNOLD'a.</p></div>
+      <div class="step"><span class="when">17–19 Kas</span><h3>İçerik bankası ve onay</h3><p class="small">Canva şablonları, ilk 2 haftanın içeriği, müşteri onayı, paid bütçe kararı.</p></div>
+      <div class="step"><span class="when">Cum 20 Kas</span><h3>Yayın başlar</h3><p class="small">Lansman videosu tüm platformlarda. İlk haftalık rapor Pzt 23 Kas.</p></div>
+    </div>
+    <div class="card"><h3>Müşteriden istenenler</h3><ul>
+      <li>Marka varlıkları: logo, film, fotoğraf arşivi</li>
+      <li>Hesap açılışı için şirket e-postası ve yetkili</li>
+      <li>Kasım–Ocak teklif politikası (erken rezervasyon)</li>
+      <li>Rehberlerden haftalık kısa video desteği</li>
+      <li>LinkedIn için kurucu veya satış yöneticisinin profili</li>
+      <li>Paid bütçe seviyesi onayı</li>
+    </ul></div>
+  </div>
+</div></section>
+</main>
+
+<footer lang="tr"><div class="wrap"><span>UAE Grand Tour · Medya planı Kasım 2026 – Ocak 2027</span><span>Hazırlayan · PMA Partner</span></div></footer>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+// menu
+const mb=document.getElementById('menuBtn'),mn=document.getElementById('menu');
+const setM=o=>{mn.hidden=!o;mb.setAttribute('aria-expanded',String(o))};
+mb.addEventListener('click',e=>{e.stopPropagation();setM(mn.hidden)});
+mn.addEventListener('click',e=>{if(e.target.closest('a'))setM(false)});
+document.addEventListener('click',e=>{if(!mn.hidden&&!mn.contains(e.target))setM(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setM(false)});
+
+const PL={IG:'Instagram',FB:'Facebook',TT:'TikTok',YT:'YouTube',LI:'LinkedIn',GB:'Google Business',EM:'Bülten'};
+const TR_D=['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'], TR_M=['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'];
+const U=(y,m,d)=>new Date(Date.UTC(y,m-1,d)), key=d=>d.toISOString().slice(0,10), fmt=d=>`${d.getUTCDate()} ${TR_M[d.getUTCMonth()]}`;
+const START=U(2026,11,20), END=U(2027,1,31);
+const WEEKS=[
+ {n:'H0',from:U(2026,11,20),to:U(2026,11,22),em:'Yedi emirlik',tag:'One Country. Endless Discoveries.',j:'Grand Classic',th:'ikonik yerler',tip:'Kasım–Mart neden en iyi dönem',camp:'launch',ev:'Lansman'},
+ {n:'H1',from:U(2026,11,23),to:U(2026,11,29),em:'Dubai',tag:'Future in motion',j:'Dubai Essential Escape',th:'şehir ve çöl',tip:'Dubai\'den sonra nereye: 6 emirlik',camp:'dubai',ev:'Black Friday 27 Kas'},
+ {n:'H2',from:U(2026,11,30),to:U(2026,12,6),em:'Abu Dhabi',tag:'Monumental calm',j:'Grand Culture & Heritage',th:'kaleler ve miras',tip:'Ulusal Gün haftasında seyahat',camp:'nationalday',ev:'Anma Günü 30 Kas · Ulusal Gün 2 Ara'},
+ {n:'H3',from:U(2026,12,7),to:U(2026,12,13),em:'Sharjah',tag:'Stories kept alive',j:'Grand Culture & Heritage',th:'sanat ve müzeler',tip:'Müzeler ve kıyafet kuralları',camp:'sharjah',ev:''},
+ {n:'H4',from:U(2026,12,14),to:U(2026,12,20),em:'Ras Al Khaimah',tag:'Above the horizon',j:'Grand Adventure',th:'dağ ve macera',tip:'Jebel Jais için ne giyilir',camp:'rak',ev:''},
+ {n:'H5',from:U(2026,12,21),to:U(2026,12,27),em:'Aile haftası',tag:'Let the journey come to you',j:'Grand Family',th:'çocuklarla çöl',tip:'Çocuklarla 11 gün: tempo',camp:'family',ev:'Noel 24–25 Ara'},
+ {n:'H6',from:U(2026,12,28),to:U(2027,1,3),em:'2027: yediyi de gör',tag:'One Country. Endless Discoveries.',j:'Grand Classic',th:'yeni yıl anları',tip:'2027 için en iyi seyahat ayları',camp:'newyear',ev:'Yılbaşı'},
+ {n:'H7',from:U(2027,1,4),to:U(2027,1,10),em:'Ajman & Umm Al Quwain',tag:'A quieter shore',j:'Grand Wellness',th:'sakin kıyı ve wellness',tip:'Yeni yılda yavaş seyahat',camp:'wellness',ev:''},
+ {n:'H8',from:U(2027,1,11),to:U(2027,1,17),em:'Fujairah',tag:'Where mountains meet sea',j:'Grand Eco Friendly',th:'dağ, deniz, doğa',tip:'Sorumlu seyahat',camp:'fujairah',ev:'LinkedIn acente etkinliği'},
+ {n:'H9',from:U(2027,1,18),to:U(2027,1,24),em:'Al Ain & Abu Dhabi',tag:'Monumental calm',j:'Grand Beach',th:'vaha ve bahçeler',tip:'Vize, Turizm Dirhemi, bütçe',camp:'alain',ev:''},
+ {n:'H10',from:U(2027,1,25),to:U(2027,1,31),em:'Baharı planla',tag:'Choose a feeling, not a checklist',j:'10 rota karşılaştırma',th:'hangi duygu',tip:'10 rota tek tabloda',camp:'planspring',ev:'Erken rezervasyon'}
+];
+const weekOf=d=>WEEKS.find(w=>d>=w.from&&d<=w.to);
+const EMAIL={'2026-11-24':['B2B: Yedi emirliği tek pakette satın',1],'2026-12-02':['Seven as One: BAE Ulusal Günü'],'2026-12-15':['B2B: 2027 sezon müsaitlikleri',1],'2026-12-16':['Bir yolculuk hediye et'],'2026-12-30':['2027: yediyi de görme yılı'],'2027-01-13':['Fujairah ve Grand Eco Friendly'],'2027-01-19':['B2B: bahar kapasitesi ve acente etkinliği',1],'2027-01-27':['Baharı şimdi planla: 10 rota tek tabloda']};
+const V=['IG','FB','TT','YT'];
+const I=(t,k,ps,f,ti)=>({t,k,ps,f,ti});
+function base(d,w){const em=w.em,j=w.j;switch(d.getUTCDay()){
+ case 1:return[I('10:00','L',['LI'],'Kişisel profil',`Acentelere: müşterileriniz ${em} sonrası nereye gidebilir?`),I('12:30','S',['IG'],'Story',`Anket: ${em} için ilk durak?`),I('19:00','V',V,'Video',`Bir Emirlik, Bir Hafta: ${em}, "${w.tag}"`)];
+ case 2:return[I('19:00','C',['IG','FB'],'Carousel',`${j}: gün gün rota`)];
+ case 3:return[I('11:00','G',['GB'],'Google gönderisi',`${j}: Plan your journey`),I('19:00','V',V,'Video',`Deneyim: ${w.th}`)];
+ case 4:return[I('10:00','L',['LI'],'Şirket sayfası',`${j} rota PDF'i (doküman gönderisi)`),I('12:30','S',['IG'],'Story',`Soru-cevap: ${em} pratik bilgiler`)];
+ case 5:return[I('17:00','C',['IG','FB'],'Carousel',`Planlama Cuması: ${w.tip}`)];
+ case 6:return[I('12:00','V',['IG','TT'],'Video',`Rehberin Köşesi: ${em}'de az bilinen yer`)];
+ case 0:return[I('18:00','S',['IG'],'Story',`Haftanın özeti + gelecek hafta`)];}}
+const SP={
+ '2026-11-20':{b:'Lansman',r:1,it:[I('10:00','L',['LI'],'Şirket + kişisel','UAE Grand Tour lansmanı: acenteler için 10 hazır rota'),I('11:00','G',['GB'],'Google gönderisi','Profil açılışı'),I('19:00','V',V,'Video','Lansman: One Country. Endless Discoveries.')]},
+ '2026-11-21':{b:'Lansman',r:1,it:[I('12:00','C',['IG','FB'],'Carousel','Yedi emirlik, yedi karakter')]},
+ '2026-11-22':{b:'Lansman',r:1,it:[I('18:00','S',['IG'],'Story','Quiz: Choose a feeling')]},
+ '2026-11-27':{b:'Black Friday',it:[I('10:00','S',['IG'],'Story','2027 erken rezervasyon (müşteri onayına bağlı)')]},
+ '2026-11-30':{b:'Anma Günü',r:1,note:'Saygı günü: tek sade paylaşım, promosyon ve reklam yok.',it:[I('10:00','C',['IG','FB','LI'],'Görsel','Commemoration Day saygı paylaşımı')]},
+ '2026-12-02':{b:'Ulusal Gün',r:1,it:[I('10:00','V',V,'Video','Seven as One: Eid Al Etihad'),I('10:00','L',['LI'],'Şirket sayfası','BAE Ulusal Günü kutlaması'),I('19:00','S',['IG'],'Story','Ulusal Gün kutlamaları')]},
+ '2026-12-24':{b:'Noel',it:[I('12:00','S',['IG'],'Story','Bir yolculuk hediye et')]},
+ '2026-12-31':{b:'Yılbaşı',r:1,it:[I('19:00','V',['IG','TT','FB'],'Video','Havai fişeklerden ilk ışığa: 2027\'ye yolda başla')]},
+ '2027-01-01':{b:'Yeni yıl',r:1,it:[I('12:00','C',['IG','FB'],'Carousel','2027\'de BAE\'de görülecek 7 an'),I('10:00','L',['LI'],'Şirket sayfası','2027 sezonu: rotalar ve kapasite')]},
+ '2027-01-14':{b:'Acente etkinliği',it:[I('15:00','L',['LI'],'LinkedIn Etkinlik','Canlı: Selling the UAE beyond Dubai')]}
+};
+const PLAN=[];
+for(let d=new Date(START);d<=END;d=new Date(d.getTime()+864e5)){
+ const k=key(d),w=weekOf(d),sp=SP[k]; let it=(sp&&sp.r)?[]:base(d,w);
+ if(sp)it=it.concat(sp.it);
+ if(EMAIL[k])it.push(I('10:00','E',['EM'],EMAIL[k][1]?'B2B bülten':'Bülten',EMAIL[k][0]));
+ it.sort((a,b)=>a.t.localeCompare(b.t));
+ const c={},yy=k.slice(2,4)+k.slice(5,7)+k.slice(8,10);
+ it.forEach(x=>{c[x.k]=(c[x.k]||0)+1;x.id=`UGT-${yy}-${x.k}${c[x.k]}`;x.utm=`ugt_${w.n.replace('H','w')}_${w.camp}`});
+ PLAN.push({d,k,w,it,b:sp&&sp.b,note:sp&&sp.note});
+}
+document.querySelector('#weeksTable tbody').innerHTML=WEEKS.map(w=>`<tr><td><b>${w.n}</b></td><td style="white-space:nowrap">${fmt(w.from)} – ${fmt(w.to)}</td><td>${w.em}<br><span class="small">${w.tag}</span></td><td>${w.j}</td><td>${w.ev||'<span class="small">—</span>'}</td></tr>`).join('');
+
+let month='11'; const act=new Set(Object.keys(PL));
+const ch=document.getElementById('platChips');
+ch.innerHTML=Object.keys(PL).map(p=>`<button class="chip" id="chip-${p}" data-p="${p}" aria-pressed="true"><span class="pl ${p}">${p}</span>${PL[p]}</button>`).join('');
+ch.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;const p=b.dataset.p;if(act.has(p)){act.delete(p);b.setAttribute('aria-pressed','false')}else{act.add(p);b.setAttribute('aria-pressed','true')}render()});
+document.getElementById('monthSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;month=b.dataset.m;document.querySelectorAll('#monthSeg button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render()});
+const days=()=>PLAN.filter(x=>month==='all'||String(x.d.getUTCMonth()+1)===month);
+const vis=x=>x.it.filter(i=>i.ps.some(p=>act.has(p)));
+function render(){let n=0,pl=0;const per={};
+ document.getElementById('cal').innerHTML=days().map(x=>{const its=vis(x);its.forEach(i=>{n++;i.ps.filter(p=>act.has(p)).forEach(p=>{pl++;per[p]=(per[p]||0)+1})});
+  return `<article class="day${x.b?' special':''}"><header><span class="dt">${fmt(x.d)}<small>${TR_D[x.d.getUTCDay()]}</small></span>${x.b?`<span class="badge">${x.b}</span>`:`<span class="wk">${x.w.n} · ${x.w.em}</span>`}</header>${x.note?`<div class="note">${x.note}</div>`:''}
+  ${its.length?its.map(i=>`<div class="item"><span class="t">${i.t}</span><span class="pls">${i.ps.map(p=>`<span class="pl ${p}">${p}</span>`).join('')}</span><div class="ti">${i.ti}<div class="meta">${i.f} · ${i.id}</div></div></div>`).join(''):'<div class="note">Bu gün seçili platformlarda yayın yok.</div>'}</article>`}).join('');
+ document.getElementById('calSummary').innerHTML=`<span><b>${days().length}</b> gün</span><span><b>${n}</b> içerik</span><span><b>${pl}</b> yayın</span>`+Object.keys(PL).filter(p=>per[p]).map(p=>`<span><span class="pl ${p}">${p}</span> <b>${per[p]}</b></span>`).join('');}
+render();
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,2600)}
+document.getElementById('copyCsv').addEventListener('click',()=>{
+ const rows=[['Yayın ID','İçerik ID','Tarih','Saat (GST)','Platform','Format','Konu','Hafta','UTM kampanya','Durum']];
+ days().forEach(x=>vis(x).forEach(i=>i.ps.filter(p=>act.has(p)).forEach(p=>rows.push([`${i.id}-${p}`,i.id,x.k,i.t,PL[p],i.f,i.ti,x.w.n,i.utm,'Plan']))));
+ const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+ const ok=()=>toast(`${rows.length-1} yayın satırı kopyalandı`);
+ const fb=()=>{const ta=document.createElement('textarea');ta.value=csv;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok()}catch(e){toast('Metin seçildi, Ctrl+C ile kopyalayın')}ta.remove()};
+ try{navigator.clipboard.writeText(csv).then(ok,fb)}catch(e){fb()}});
+
+// volume
+const tot={};PLAN.forEach(x=>x.it.forEach(i=>i.ps.forEach(p=>tot[p]=(tot[p]||0)+1)));
+const wk={IG:'3 video + 2 carousel + 5 story',FB:'IG ile birlikte',TT:'IG videolarının uyarlaması',YT:'Shorts olarak',LI:'Kişisel + şirket sayfası',GB:'Haftalık gönderi',EM:'2 haftada 1 + B2B aylık'};
+const per={IG:10,FB:5,TT:3,YT:2,LI:2,GB:1,EM:'~1'};
+document.getElementById('volRows').innerHTML=Object.keys(PL).map(p=>`<tr><td><span class="pl ${p}">${p}</span> ${PL[p]}</td><td class="r">${per[p]}</td><td class="r">${tot[p]||0}</td><td class="small">${wk[p]}</td></tr>`).join('');
+
+// paid
+const TIERS=[{id:'s',name:'Başlangıç',m:1500,desc:'Meta + Google arama. En iyi organik videoları büyütme, yeniden gösterim.',cpl:[40,80]},
+ {id:'g',name:'Büyüme',m:3000,desc:'Meta, Google, TikTok + 1 mikro influencer/ay. Önerilen seviye.',cpl:[35,70],rec:1},
+ {id:'x',name:'Ölçek',m:6000,desc:'Büyüme + LinkedIn B2B reklamı, Ocak\'ta orta ölçekli influencer, Almanca kreatif.',cpl:[30,60]}];
+const SPLIT={s:[['Meta (IG + FB)',55,'Video ve carousel, lead formu'],['Google arama',35,'Yüksek niyetli aramalar'],['Yeniden gösterim',10,'Site ziyaretçisi']],
+ g:[['Meta (IG + FB)',40,'Video, carousel, lead formu'],['Google arama',25,'Yüksek niyetli aramalar'],['TikTok Spark Ads',10,'Kazanan videolar'],['Influencer',15,'Mikro iş birliği'],['Yeniden gösterim',10,'Site ve video izleyici']],
+ x:[['Meta (IG + FB)',35,'EN + DE kreatif'],['Google arama',22,'EN + DE aramalar'],['TikTok Spark Ads',10,'Kazanan videolar'],['Influencer',15,'Mikro + orta ölçek'],['LinkedIn',8,'Acente hedefleme'],['Yeniden gösterim',10,'Tüm sıcak kitleler']]};
+const FL=[['Kasım (20–30)',.2],['Aralık',.3],['Ocak',.5]]; let tier='g'; const $=id=>document.getElementById(id), money=n=>'$'+Math.round(n).toLocaleString('en-US');
+function rt(){$('tiers').innerHTML=TIERS.map(t=>`<button class="tier" id="tier-${t.id}" data-t="${t.id}" aria-pressed="${t.id===tier}"><span class="tag">${t.rec?'Önerilen':'Seviye'}</span><h3>${t.name}</h3><span class="price">${money(t.m)}<small> / ay ort.</small></span><p class="small">3 ay toplam ${money(t.m*3)} medya bütçesi</p><p>${t.desc}</p></button>`).join('');
+ const T=TIERS.find(t=>t.id===tier),tt=T.m*3;$('splitRows').innerHTML=SPLIT[tier].map(s=>`<tr><td>${s[0]}</td><td class="r">%${s[1]}</td><td class="r">${money(T.m*s[1]/100)}</td><td class="small">${s[2]}</td></tr>`).join('');
+ let lo=0,hi=0;$('flightRows').innerHTML=FL.map(f=>{const b=tt*f[1],l=Math.round(b/T.cpl[1]),h=Math.round(b/T.cpl[0]);lo+=l;hi+=h;return `<tr><td>${f[0]}</td><td class="r">%${f[1]*100}</td><td class="r">${money(b)}</td><td class="r">${l}–${h}</td></tr>`}).join('')+`<tr><td><b>Toplam</b></td><td class="r">%100</td><td class="r"><b>${money(tt)}</b></td><td class="r"><b>${lo}–${hi}</b></td></tr>`;}
+$('tiers').addEventListener('click',e=>{const b=e.target.closest('.tier');if(!b)return;tier=b.dataset.t;rt()});rt();
+
+// report
+const sel=$('weekSel');sel.innerHTML=WEEKS.map((w,i)=>`<option value="${i}">${w.n} · ${fmt(w.from)} – ${fmt(w.to)} · ${w.em}</option>`).join('');
+function rr(){const w=WEEKS[+sel.value],c={};let t=0;PLAN.filter(x=>x.w===w).forEach(x=>x.it.forEach(i=>i.ps.forEach(p=>{c[p]=(c[p]||0)+1;t++})));
+ const dash='<td class="r small">—</td>'.repeat(5);
+ $('repRows').innerHTML=Object.keys(PL).filter(p=>c[p]).map(p=>`<tr><td><span class="pl ${p}">${p}</span> ${PL[p]}</td><td class="r">${c[p]}</td>${dash}</tr>`).join('')+`<tr><td><b>Toplam</b></td><td class="r"><b>${t}</b></td>${dash}</tr>`;
+ const r=new Date(w.to.getTime()+864e5);$('repDate').textContent=`Rapor: ${fmt(r)} ${TR_D[r.getUTCDay()]} 10:00 · kampanya ugt_${w.n.replace('H','w')}_${w.camp}`;}
+sel.addEventListener('change',rr);rr();
+})();
+</script>
+
+</body>
+</html>
