@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}</style>
+<title>Grand Tour Media Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600&display=swap">
+<style>
+/* Layout: uaegrandtour.com dili — kum zemin, ince büyük harf Jost başlıklar, numaralı bölüm etiketleri, kil rengi hap butonlar */
+:root{
+  --sand:#f4ede6; --sand-2:#e9dbcc; --paper:#fcfaf7; --ink:#223749; --ink-2:#344d67;
+  --clay:#c06642; --clay-dark:#9c4f2f; --gold:#c5954d; --forest:#31463c; --stone:#8a7a68;
+  --line:rgba(34,55,73,.14); --muted:rgba(34,55,73,.68);
+  --bg:var(--sand); --fg:var(--ink); --surface:var(--paper); --surface-2:var(--sand-2);
+  --hero-bg:#223749; --hero-fg:#fcfaf7; --dune-1:#c06642; --dune-2:#9c4f2f; --dune-3:#d8c6af; --sun:#edc48a;
+  --ok:#3f7a5a; --warn:#b07a1f; --bad:#a8432a;
+  --display:"Jost","Noto Kufi Arabic",system-ui,sans-serif; --body:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#16212b; --fg:#efe6dc; --surface:#1e2c39; --surface-2:#263849; --line:rgba(239,230,220,.14); --muted:rgba(239,230,220,.66);
+  --ink:#efe6dc; --ink-2:#cdbfae; --clay:#dc8460; --clay-dark:#c06642; --gold:#d9ac66; --forest:#8fb39e; --stone:#b3a38f;
+  --hero-bg:#0f1820; --hero-fg:#f4ede6; --dune-1:#a4532f; --dune-2:#7e3d22; --dune-3:#3a4b5a; --sun:#d9ac66;
+  --ok:#7cc29a; --warn:#e0b25a; --bad:#e58a6d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#16212b; --fg:#efe6dc; --surface:#1e2c39; --surface-2:#263849; --line:rgba(239,230,220,.14); --muted:rgba(239,230,220,.66);
+  --ink:#efe6dc; --ink-2:#cdbfae; --clay:#dc8460; --clay-dark:#c06642; --gold:#d9ac66; --forest:#8fb39e; --stone:#b3a38f;
+  --hero-bg:#0f1820; --hero-fg:#f4ede6; --dune-1:#a4532f; --dune-2:#7e3d22; --dune-3:#3a4b5a; --sun:#d9ac66;
+  --ok:#7cc29a; --warn:#e0b25a; --bad:#e58a6d; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-weight:300;font-size:16px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--hero-bg)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--clay)}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;text-wrap:balance;margin:0}
+h2{font-weight:200;font-size:clamp(30px,4.6vw,48px);letter-spacing:-.035em;line-height:1.02;color:var(--fg)}
+h3{font-weight:300;font-size:19px;letter-spacing:-.01em;line-height:1.2}
+p{margin:0}
+.eyebrow{display:flex;align-items:center;gap:12px;font-size:11.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--clay)}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--gold)}
+.lede{font-size:18px;max-width:64ch;color:var(--muted)}
+.small{font-size:13px;color:var(--muted)}
+.tag{display:inline-block;font-size:10.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--clay);color:#fff;border:0;border-radius:999px;padding:11px 20px;font:500 11.5px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;text-decoration:none}
+.pill:hover{background:var(--clay-dark)}
+.pill.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.pill.ghost:hover{border-color:var(--clay);color:var(--clay)}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--hero-bg);color:var(--hero-fg);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.logo{font:300 11px/1.05 var(--display);letter-spacing:.2em;text-transform:uppercase;color:var(--hero-fg);text-decoration:none}
+.logo b{font-weight:500;color:var(--sun)}
+.navlinks{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{color:rgba(255,255,255,.72);text-decoration:none;font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:8px 10px;border-radius:999px;white-space:nowrap}
+.navlinks a:hover{color:#fff;background:rgba(255,255,255,.08)}
+
+/* hero */
+.hero{background:var(--hero-bg);color:var(--hero-fg);position:relative;overflow:hidden}
+.hero .wrap{position:relative;z-index:2;padding-block:72px 210px;display:grid;gap:22px}
+.hero h1{font-weight:100;font-size:clamp(40px,7.4vw,92px);letter-spacing:-.05em;line-height:.95;color:var(--hero-fg)}
+.hero h1 span{color:var(--sun)}
+.hero .lede{color:rgba(255,255,255,.8);font-size:18px}
+.hero .eyebrow{color:var(--sun)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.hero-meta .tag{color:rgba(255,255,255,.85);border-color:rgba(255,255,255,.25)}
+.dunes{position:absolute;inset:auto 0 0 0;height:260px;z-index:1;width:100%}
+.sun{position:absolute;right:18%;bottom:120px;width:104px;height:104px;border-radius:50%;background:var(--sun);opacity:.9;z-index:1}
+.dunes .d1{fill:var(--dune-3)} .dunes .d2{fill:var(--dune-1)} .dunes .d3{fill:var(--dune-2)} .dunes .d4{fill:var(--bg)}
+
+section.block{padding-block:84px;border-top:1px solid var(--line)}
+section.block:first-of-type{border-top:0}
+.head{display:grid;gap:16px;margin-bottom:40px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.card{background:var(--surface);border:1px solid var(--line);padding:24px;display:grid;gap:12px;align-content:start;min-width:0}
+.card h3{color:var(--fg)}
+.card ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.card li::marker{color:var(--gold)}
+.num{font:200 44px/1 var(--display);letter-spacing:-.04em;color:var(--clay);font-variant-numeric:tabular-nums}
+.kpi .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+.flag{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:16px 0;border-top:1px solid var(--line)}
+.flag:first-child{border-top:0}
+.dot{width:10px;height:10px;border-radius:50%;margin-top:8px}
+.dot.ok{background:var(--ok)} .dot.warn{background:var(--warn)} .dot.bad{background:var(--bad)}
+
+/* route strip */
+.route{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;border:1px solid var(--line);background:var(--surface)}
+.route div{padding:18px 14px;border-left:1px solid var(--line);display:grid;gap:4px;align-content:start}
+.route div:first-child{border-left:0}
+.route b{font:400 13px/1.2 var(--display);letter-spacing:.08em;text-transform:uppercase}
+.route i{font-style:normal;font-size:13px;color:var(--clay)}
+.route span{font-size:12px;color:var(--muted)}
+@media (max-width:860px){.route{grid-template-columns:1fr 1fr}.route div{border-left:0;border-top:1px solid var(--line)}}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--muted);background:var(--surface-2);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right}
+.matrix td{font-size:12.5px;min-width:120px}
+
+/* platform pills */
+.pl{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.08em;padding:3px 7px;border-radius:4px;color:#fff;min-width:30px;text-align:center}
+.pl.IG{background:#b0465f}.pl.TT{background:#1f2a33}.pl.YT{background:#b8322a}.pl.FB{background:#3a5a98}.pl.LI{background:#2b6a96}.pl.PN{background:#a33a3a}.pl.EM{background:var(--forest)}.pl.GB{background:#6a7d3a}.pl.WA{background:#2f7d5c}
+:root[data-theme="dark"] .pl.TT{background:#4a5763}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pl.TT{background:#4a5763}}
+
+/* calendar */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.seg button{border:0;background:transparent;color:var(--fg);font:500 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;padding:9px 14px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink-2);color:var(--paper)}
+:root[data-theme="dark"] .seg button[aria-pressed="true"]{background:var(--clay);color:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .seg button[aria-pressed="true"]{background:var(--clay);color:#fff}}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:6px 10px;font:500 11px/1 var(--body);letter-spacing:.06em;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip[aria-pressed="false"]{opacity:.45}
+.cal{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr))}
+.day{background:var(--surface);border:1px solid var(--line);display:grid;align-content:start;min-width:0}
+.day.special{border-color:var(--gold)}
+.day header{display:flex;gap:10px;align-items:baseline;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.day .dt{font:300 20px/1 var(--display);text-transform:uppercase;letter-spacing:-.01em}
+.day .dt small{font-size:11px;letter-spacing:.16em;color:var(--muted);margin-left:6px}
+.day .wk{font-size:11px;color:var(--clay);letter-spacing:.08em;text-transform:uppercase}
+.badge{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--gold);color:#1c1c1c;padding:3px 8px;border-radius:999px}
+.item{display:grid;grid-template-columns:44px 40px 1fr;gap:10px;padding:10px 16px;border-top:1px solid var(--line);font-size:13.5px;align-items:start}
+.item:first-of-type{border-top:0}
+.item .t{font-variant-numeric:tabular-nums;color:var(--muted);font-size:12.5px;padding-top:1px}
+.item .ti{min-width:0}
+.item .meta{font-size:11px;color:var(--muted);letter-spacing:.03em;margin-top:2px;word-break:break-all}
+.note{padding:10px 16px;font-size:12.5px;background:var(--surface-2);color:var(--muted)}
+.summary{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--muted);margin-bottom:14px}
+.summary b{color:var(--fg);font-weight:500}
+select{font:400 14px var(--body);padding:9px 12px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;max-width:100%}
+
+/* funnel */
+.funnel{display:grid;gap:8px}
+.funnel div{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:16px;padding:14px 18px;background:var(--surface);border:1px solid var(--line);align-items:center}
+.funnel div:nth-child(1){margin-inline:0} .funnel div:nth-child(2){margin-inline:3%} .funnel div:nth-child(3){margin-inline:6%} .funnel div:nth-child(4){margin-inline:9%}
+.funnel b{font:400 13px var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
+@media (max-width:620px){.funnel div{grid-template-columns:1fr;margin-inline:0!important}}
+
+.tiers{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.tier{background:var(--surface);border:1px solid var(--line);padding:26px;display:grid;gap:14px;align-content:start;cursor:pointer;text-align:left;color:var(--fg);font:inherit}
+.tier[aria-pressed="true"]{border-color:var(--clay);box-shadow:inset 0 3px 0 var(--clay)}
+.tier .price{font:200 40px/1 var(--display);letter-spacing:-.03em}
+.tier .price small{font-size:14px;color:var(--muted);letter-spacing:0}
+
+.steps{display:grid;gap:0;border-left:1px solid var(--gold);margin-left:6px}
+.step{position:relative;padding:0 0 26px 26px;display:grid;gap:4px}
+.step::before{content:"";position:absolute;left:-6px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:1px solid var(--gold)}
+.step.now::before{background:var(--clay);border-color:var(--clay)}
+.step .when{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--clay);font-weight:500}
+
+.status{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);background:var(--surface)}
+.status div{flex:1 1 120px;padding:14px;border-left:1px solid var(--line);display:grid;gap:2px}
+.status div:first-child{border-left:0}
+.status b{font:400 12px var(--display);text-transform:uppercase;letter-spacing:.1em}
+.status span{font-size:12px;color:var(--muted)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:var(--surface-2);padding:2px 6px;border-radius:4px;word-break:break-all}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink-2);color:var(--paper);padding:10px 18px;border-radius:999px;font-size:13px;z-index:20}
+:root[data-theme="dark"] .toast{background:var(--clay);color:#fff}
+footer{background:var(--hero-bg);color:rgba(255,255,255,.7);font-size:13px}
+footer .wrap{padding-block:40px;display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between}
+@media (prefers-reduced-motion:no-preference){.day,.card{transition:border-color .2s}}
+</style>
+<style>
+.hero .wrap{padding-block:56px 170px}
+section.block{padding-block:68px;scroll-margin-top:64px}
+.credit{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.credit b{color:var(--sun);font-weight:500}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--hero-bg);color:var(--hero-fg);border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar .wrap{display:flex;align-items:center;gap:16px;height:60px;position:relative}
+.menubtn{display:inline-flex;align-items:center;gap:10px;background:transparent;border:1px solid rgba(255,255,255,.25);color:var(--hero-fg);border-radius:999px;padding:9px 16px;font:500 11px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+.menubtn:hover{border-color:var(--sun);color:var(--sun)}
+.menubtn i{display:grid;gap:3px}.menubtn i::before,.menubtn i::after,.menubtn i span{content:"";display:block;width:14px;height:1px;background:currentColor}
+.menu{position:absolute;left:max(16px,env(safe-area-inset-left,0px));top:58px;background:var(--surface);color:var(--fg);border:1px solid var(--line);box-shadow:0 18px 40px rgba(0,0,0,.18);min-width:min(340px,calc(100vw - 32px));max-height:calc(100vh - 90px);overflow:auto;padding:8px;display:grid}
+.menu a{display:grid;grid-template-columns:34px 1fr;gap:8px;padding:10px 12px;color:var(--fg);text-decoration:none;font-size:14px;border-radius:4px}
+.menu a span{color:var(--clay);font-size:12px;letter-spacing:.1em;font-variant-numeric:tabular-nums;padding-top:1px}
+.menu a:hover,.menu a:focus-visible{background:var(--surface-2)}
+.topbar .right{margin-left:auto;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+@media (max-width:560px){.topbar .right{display:none}}
+.src{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px;margin-top:4px}
+.src b{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--forest)}
+.src a{color:var(--clay);word-break:break-word}
+.stat{display:grid;gap:6px}
+.stat .num{font-size:38px}
+.brief{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:0;border:1px solid var(--line);background:var(--surface)}
+.brief a{display:grid;gap:4px;padding:16px 18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-decoration:none;color:var(--fg)}
+.brief a:hover{background:var(--surface-2)}
+.brief i{font-style:normal;font-size:12.5px;color:var(--muted)}
+.brief b{font-weight:400;font-family:var(--display);text-transform:uppercase;letter-spacing:.06em;font-size:13px}
+.brief span{font-size:11px;color:var(--clay);letter-spacing:.12em;text-transform:uppercase}
+.plat dl{margin:0;display:grid;grid-template-columns:110px 1fr;gap:8px 14px;font-size:14.5px}
+.plat dt{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.plat dd{margin:0;min-width:0}
+.plat h3{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+@media (max-width:480px){.plat dl{grid-template-columns:1fr}}
+.cost{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--forest)}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:0;border:1px solid var(--line);background:var(--surface)}
+.flow div{padding:16px;border-right:1px solid var(--line);display:grid;gap:4px;align-content:start}
+.flow b{font:400 12.5px var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--clay)}
+.flow span{font-size:13.5px}
+.item .pls{display:flex;gap:3px;flex-wrap:wrap}
+.item{grid-template-columns:44px 92px 1fr}
+@media (max-width:420px){.item{grid-template-columns:40px 1fr}.item .pls{grid-column:2}.item .ti{grid-column:1/-1}}
+</style>
+<style>
+[hidden]{display:none!important}
+.langsw{display:inline-flex;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:2px;margin-left:auto}
+.langsw button{border:0;background:transparent;color:rgba(255,255,255,.75);font:500 11px/1 var(--body);letter-spacing:.14em;padding:7px 11px;border-radius:999px;cursor:pointer}
+.langsw button[aria-pressed="true"]{background:var(--sun);color:#1c2733}
+.langsw + .right{margin-left:12px}
+.bar{display:block;height:8px;width:var(--w);background:var(--clay);border-radius:4px;margin-top:7px;max-width:100%}
+.stages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line);background:var(--surface)}
+.stage{padding:22px;display:grid;gap:10px;align-content:start;border-left:1px solid var(--line);position:relative}
+.stage:first-child{border-left:0}
+.stage:not(:last-child)::after{content:"";position:absolute;right:-9px;top:28px;width:16px;height:16px;background:var(--surface);border-top:1px solid var(--line);border-right:1px solid var(--line);transform:rotate(45deg);z-index:1}
+.stage:nth-child(1) .tag{border-color:var(--gold);color:var(--gold)}
+.stage:nth-child(4) .tag{border-color:var(--clay);color:var(--clay)}
+.stage .ex{font-size:15px;font-style:italic;border-left:2px solid var(--gold);padding-left:12px}
+@media (max-width:860px){.stages{grid-template-columns:1fr 1fr}.stage:nth-child(3){border-left:0}.stage::after{display:none}.stage{border-top:1px solid var(--line)}}
+@media (max-width:520px){.stages{grid-template-columns:1fr}.stage{border-left:0}}
+.card.feature{border-color:var(--clay);box-shadow:inset 0 3px 0 var(--clay)}
+.stg{display:inline-block;font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;border-radius:3px;border:1px solid var(--line);margin-right:4px}
+.stg.sV{color:var(--gold);border-color:var(--gold)}.stg.sI{color:var(--forest);border-color:var(--forest)}.stg.sD{color:var(--clay);border-color:var(--clay)}.stg.sS{background:var(--clay);color:#fff;border-color:var(--clay)}.stg.sP{color:var(--ink-2);border-color:var(--ink-2)}
+
+.ex-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr))}
+.ex-card{background:var(--surface);border:1px solid var(--line);display:grid;gap:14px;padding:18px;align-content:start;min-width:0}
+.ex-card header{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.frames{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.fr{flex:0 0 auto;position:relative;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:14px;color:#fcfaf7;border-radius:10px;overflow:hidden}
+.frames.phone3 .fr,.frames.story .fr{width:96px;aspect-ratio:9/16}
+.frames.story .fr{width:120px}
+.frames.car .fr{width:150px;aspect-ratio:4/5;border-radius:4px}
+.frames.post .fr{width:100%;max-width:300px;aspect-ratio:4/5;border-radius:4px;padding:22px}
+.fr-a{font:200 22px/1 var(--display);text-transform:uppercase;letter-spacing:-.02em;text-wrap:balance}
+.fr-a.sm{font-size:15px;font-weight:300}
+.frames.post .fr-a{font-size:34px}
+.frames.phone3 .fr-a{font-size:16px}
+.fr-b{font-size:11px;line-height:1.35;opacity:.9}
+.fr-logo{position:absolute;left:12px;bottom:10px;font-size:7.5px;letter-spacing:.22em;opacity:.8}
+.bg-night{background:linear-gradient(170deg,#223749 0%,#344d67 70%,#c5954d 140%)}
+.bg-dune{background:linear-gradient(175deg,#edc48a 0%,#c06642 65%,#9c4f2f 100%)}
+.bg-sea{background:linear-gradient(170deg,#31463c 0%,#2b5a6a 100%)}
+.bg-sand{background:linear-gradient(170deg,#d8c6af 0%,#9c8c7a 100%)}
+.bg-clay{background:linear-gradient(170deg,#c06642 0%,#223749 120%)}
+.quiz{display:grid;gap:4px;margin-top:4px}.quiz i{font-style:normal;font-size:10px;background:rgba(255,255,255,.9);color:#223749;border-radius:999px;padding:4px 8px;text-align:center}
+.sticker{margin-top:6px;align-self:flex-start;font-size:10px;font-weight:600;background:#fcfaf7;color:#c06642;border-radius:6px;padding:5px 8px}
+.sticker.wa{background:#2f7d5c;color:#fff}
+.caption{display:grid;gap:4px;border-left:2px solid var(--gold);padding-left:12px}.caption p{font-size:13.5px;line-height:1.55}
+.why{font-size:13px;color:var(--muted)}
+.lipost,.mail{border:1px solid var(--line);background:var(--bg);padding:14px;display:grid;gap:8px;font-size:13.5px}
+.mail div{display:grid;gap:2px}.mail ol{margin:0;padding-left:18px;display:grid;gap:4px}
+
+.vis-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));align-items:start}
+.ig{margin:0;background:var(--surface);border:1px solid var(--line);display:grid;gap:8px;padding-bottom:12px;min-width:0}
+.ig-head{display:flex;align-items:center;gap:8px;padding:10px 12px 0;font-size:13px}
+.ig-head .stg{margin-left:auto}
+.ig-av{width:30px;height:30px;border-radius:50%;background:var(--clay);color:#fff;display:grid;place-items:center;font-size:9px;font-weight:600;letter-spacing:.06em;flex:0 0 auto}
+.ig-media svg{display:block;width:100%;height:auto}
+.ig-media.story{position:relative;border-radius:12px;overflow:hidden;margin:12px 12px 0}
+.ig-sthead{position:absolute;left:14px;top:22px;display:flex;align-items:center;gap:8px;color:#fff;font-size:12px}
+.ig-bar{padding:0 12px;color:var(--fg)}
+.ig-cap{padding:0 12px;font-size:13px;line-height:1.5}
+.ig-tags{color:var(--ink-2)}
+.ig figcaption{padding:0 12px}
+.ig-story figcaption{padding-top:4px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<template id="tpl-en">
+<div class="topbar" lang="en">
+  <div class="wrap">
+    <button class="menubtn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu"><i><span></span></i>Menu</button>
+    <a class="logo" href="#top">UAE<br>Grand<br>Tour</a>
+    <span class="right">Prepared by · PMA Partner</span>
+    <nav class="menu" id="menu" hidden aria-label="Sections">
+      <a href="#brief"><span>00</span>Team</a>
+      <a href="#market"><span>01</span>UAE source markets</a>
+      <a href="#power"><span>02</span>7+1: official channels and partners</a>
+      <a href="#audience"><span>03</span>Target audiences</a>
+      <a href="#funnel"><span>04</span>From visibility to sales (KPIs)</a>
+      <a href="#message"><span>05</span>How we market UAE Grand Tour</a>
+      <a href="#production"><span>06</span>How we produce content</a>
+      <a href="#examples"><span>07</span>Example content</a>
+      <a href="#platform"><span>08</span>Platform by platform</a>
+      <a href="#channel"><span>09</span>Channel by channel · influencers</a>
+      <a href="#partners"><span>10</span>Partners (B2B)</a>
+      <a href="#takvim"><span>11</span>Day-by-day content plan</a>
+      <a href="#yayin"><span>12</span>Publishing plan</a>
+      <a href="#paid"><span>13</span>Paid media</a>
+      <a href="#arnold"><span>14</span>ARNOLD and weekly report</a>
+      <a href="#start"><span>15</span>Kick-off</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero" id="top" lang="en">
+  <div class="wrap">
+    <p class="eyebrow">UAE Grand Tour · Media plan · November 2026 – January 2027</p>
+    <h1>One country.<br>Seven emirates.<br><span>One journey.</span></h1>
+    <p class="lede">A three-month organic media plan: platform by platform, channel by channel, day by day. It brings together our own channels, the official tourism channels of the UAE and its emirates, hotel and attraction partners, and travel trade partners. Every post is tracked and reported in ARNOLD.</p>
+    <p class="credit">Prepared by · <b>PMA Partner</b></p>
+  </div>
+  <span class="sun" aria-hidden="true"></span>
+  <svg class="dunes" viewBox="0 0 1440 260" preserveAspectRatio="none" aria-hidden="true">
+    <path class="d1" d="M0 170 C220 110 380 120 560 160 C760 205 900 120 1110 140 C1260 155 1360 130 1440 120 L1440 260 L0 260Z" opacity=".55"/>
+    <path class="d2" d="M0 200 C180 160 330 165 520 196 C700 225 860 170 1040 176 C1210 182 1330 205 1440 188 L1440 260 L0 260Z"/>
+    <path class="d3" d="M0 228 C240 206 420 214 640 232 C840 248 1020 214 1220 222 C1320 226 1390 236 1440 232 L1440 260 L0 260Z"/>
+    <path class="d4" d="M0 252 C400 240 900 262 1440 248 L1440 260 L0 260Z"/>
+  </svg>
+</header>
+
+<main lang="en">
+<section class="block" id="brief"><div class="wrap">
+  <div class="head"><p class="eyebrow">00 · Team</p><h2>Who runs the plan.</h2></div>
+  <div class="grid g3">
+    <div class="card"><span class="tag">Team</span><h3>Project manager</h3><p>Coordination with the UAE Grand Tour team, approvals, partner relations, weekly report.</p></div>
+    <div class="card"><span class="tag">Team</span><h3>Content and social media</h3><p>Planning, copywriting, publishing, community management, partner and influencer follow-up.</p></div>
+    <div class="card"><span class="tag">Team</span><h3>Design and video</h3><p>Templates, Reels and video edits, carousels, newsletter design.</p></div>
+  </div>
+</div></section>
+
+<section class="block" id="market"><div class="wrap">
+  <div class="head"><p class="eyebrow">01 · UAE source market research</p><h2>Where the UAE's visitors come from.</h2>
+  <p class="lede">The whole country, emirate by emirate, from each tourism authority's latest published figures. Every figure has its source link underneath.</p></div>
+
+  <div class="grid g3">
+    <div class="card stat"><span class="num">25.2M</span><h3>UAE hotel guests (2022)</h3><p class="small">Latest national figure published by the ministry. National target for 2031: 40M hotel guests a year.</p>
+      <div class="src"><b>Source</b><span>UAE Ministry of Economy and Tourism, <a href="https://www.moet.gov.ae/en/tourism-indicators" target="_blank" rel="noopener">Tourism indicators</a>; <a href="https://www.moet.gov.ae/en/-/uae-showcases-its-leading-experience-in-tourism-sector-development-at-118th-session-of-oecd-tourism-committee" target="_blank" rel="noopener">2031 strategy targets</a></span><b>Why</b><span>The country is growing towards 40M guests a year. Multi-emirate travel is part of that growth.</span></div></div>
+    <div class="card stat"><span class="num">26.6M</span><h3>Abu Dhabi visitors (2025)</h3><p class="small">5.9M hotel guests; international guests +10%. Average stay 2.9 nights.</p>
+      <div class="src"><b>Source</b><span>DCT Abu Dhabi, <a href="https://www.mediaoffice.abudhabi/en/tourism/abu-dhabis-culture-and-tourism-sectors-delivered-strong-growth-in-2025-with-26m-visitors/" target="_blank" rel="noopener">Abu Dhabi Media Office, 2025 results</a></span><b>Why</b><span>Abu Dhabi is the largest emirate by visitor count and publishes market-level data.</span></div></div>
+    <div class="card stat"><span class="num">19.59M</span><h3>Dubai international overnight visitors (2025)</h3><p class="small">18.72M in 2024. Average stay 3.7 nights.</p>
+      <div class="src"><b>Source</b><span>Dubai DET, <a href="https://www.dubaidet.gov.ae/en/research-and-insights/-/media/files/faqs/annual-visitor-report-2025/det-annual-visitor-report-2025.pdf" target="_blank" rel="noopener">Annual Visitor Report 2025</a>; <a href="https://gulfnews.com/business/tourism/dubai-tourism-hits-record-as-1959m-international-visitors-arrive-in-2025-1.500437381" target="_blank" rel="noopener">Gulf News, 9 Feb 2026</a></span><b>Why</b><span>The main international gateway; most Grand Tour guests arrive through Dubai or Abu Dhabi.</span></div></div>
+    <div class="card stat"><span class="num">1.6M</span><h3>Sharjah hotel guests (2024)</h3><p class="small">+11% on 2023. Russia first (270K+), then India (170K+), Europe (100K+), China (60K+).</p>
+      <div class="src"><b>Source</b><span>Sharjah Commerce and Tourism Development Authority, <a href="https://www.sharjahtourism.ae/news/sharjah-welcomed-1-6-million-hotel-guests-in-2024-reflecting-an-11-increase/" target="_blank" rel="noopener">2024 results</a></span><b>Why</b><span>Shows strong CIS and Indian demand beyond Dubai and Abu Dhabi.</span></div></div>
+    <div class="card stat"><span class="num">1.35M</span><h3>Ras Al Khaimah overnight visitors (2025)</h3><p class="small">+6%. Growth: Russia +20%, China +19%, India +14%, UK +10%, Poland +22%, Romania +41%.</p>
+      <div class="src"><b>Source</b><span>RAK Tourism Development Authority, <a href="https://raktda.com/press-release-ras-al-khaimah-delivers-record-tourism-performance-in-2025-with-1-35m-overnight-visitors/" target="_blank" rel="noopener">2025 results</a></span><b>Why</b><span>The northern emirates are growing fastest with European and CIS markets: strong for adventure and nature journeys.</span></div></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:26px">
+    <div><h3 style="margin-bottom:12px">Abu Dhabi top markets (hotel guests, 2025)</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Market</th><th class="r">Hotel guests</th><th style="width:34%"></th></tr></thead>
+        <tbody>
+          <tr><td>India</td><td class="r">436,124</td><td><span class="bar" style="--w:100%"></span></td></tr>
+          <tr><td>Russia</td><td class="r">257,200</td><td><span class="bar" style="--w:59%"></span></td></tr>
+          <tr><td>United Kingdom</td><td class="r">250,906</td><td><span class="bar" style="--w:58%"></span></td></tr>
+          <tr><td>China</td><td class="r">248,494</td><td><span class="bar" style="--w:57%"></span></td></tr>
+          <tr><td>Saudi Arabia</td><td class="r">200,652</td><td><span class="bar" style="--w:46%"></span></td></tr>
+        </tbody>
+      </table></div>
+      <div class="src"><b>Source</b><span>DCT Abu Dhabi, <a href="https://www.mediaoffice.abudhabi/en/tourism/abu-dhabis-culture-and-tourism-sectors-delivered-strong-growth-in-2025-with-26m-visitors/" target="_blank" rel="noopener">Abu Dhabi Media Office</a></span><b>Note</b><span>Longest stays: Russia 4.3 nights, UK 4.2, Germany 4.1, Italy 3.4 (average 2.9). Long-stay markets fit an 8–12 day journey best.</span></div>
+    </div>
+    <div><h3 style="margin-bottom:12px">Dubai visitors by source region (2025)</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Region</th><th class="r">Visitors</th><th class="r">Share</th></tr></thead>
+        <tbody>
+          <tr><td>Western Europe</td><td class="r">4.10M</td><td class="r">21%</td></tr>
+          <tr><td>GCC</td><td class="r">2.99M</td><td class="r">15%</td></tr>
+          <tr><td>CIS and Eastern Europe</td><td class="r">2.89M</td><td class="r">15%</td></tr>
+          <tr><td>South Asia</td><td class="r">2.89M</td><td class="r">15%</td></tr>
+          <tr><td>MENA (excl. GCC)</td><td class="r">2.17M</td><td class="r">11%</td></tr>
+          <tr><td>North East and South East Asia</td><td class="r">1.85M</td><td class="r">9%</td></tr>
+          <tr><td>Americas</td><td class="r">1.40M</td><td class="r">7%</td></tr>
+          <tr><td>Africa</td><td class="r">0.90M</td><td class="r">5%</td></tr>
+          <tr><td>Australasia</td><td class="r">0.40M</td><td class="r">2%</td></tr>
+        </tbody>
+      </table></div>
+      <div class="src"><b>Source</b><span>Dubai DET, <a href="https://www.dubaidet.gov.ae/en/research-and-insights/-/media/files/faqs/annual-visitor-report-2025/det-annual-visitor-report-2025.pdf" target="_blank" rel="noopener">Annual Visitor Report 2025</a></span></div>
+    </div>
+  </div>
+
+  <h3 style="margin:30px 0 12px">The UAE picture: which markets lead across the emirates</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Market</th><th>Abu Dhabi 2025</th><th>Dubai 2025</th><th>Sharjah 2024</th><th>Ras Al Khaimah 2025</th><th>For UAE Grand Tour</th></tr></thead>
+    <tbody>
+      <tr><td><b>India</b></td><td>#1 · 436K</td><td>South Asia 15%</td><td>#2 · 170K+</td><td>+14%</td><td>Primary: families and groups, via travel partners</td></tr>
+      <tr><td><b>Russia / CIS</b></td><td>#2 · 257K · 4.3 nights</td><td>CIS & E. Europe 15%</td><td>#1 · 270K+</td><td>+20%</td><td>Primary: long stays, beach and adventure</td></tr>
+      <tr><td><b>UK and Western Europe</b></td><td>UK #3 · 251K · 4.2 nights; Germany 4.1, Italy 3.4 nights</td><td>W. Europe 21% (largest)</td><td>Europe 100K+</td><td>UK +10%, Poland +22%, Romania +41%</td><td>Primary: couples and culture, longest stays</td></tr>
+      <tr><td><b>China</b></td><td>#4 · 248K</td><td>NE & SE Asia 9%</td><td>60K+ (+828%)</td><td>+19%</td><td>Secondary: fastest growing</td></tr>
+      <tr><td><b>Saudi Arabia / GCC</b></td><td>#5 · 201K</td><td>GCC 15%</td><td>Saudi 5%, Oman 6%</td><td>Domestic +7%</td><td>Secondary: short breaks, families</td></tr>
+    </tbody>
+  </table></div>
+  <div class="src"><b>Sources</b><span><a href="https://www.mediaoffice.abudhabi/en/tourism/abu-dhabis-culture-and-tourism-sectors-delivered-strong-growth-in-2025-with-26m-visitors/" target="_blank" rel="noopener">DCT Abu Dhabi 2025</a> · <a href="https://www.dubaidet.gov.ae/en/research-and-insights/-/media/files/faqs/annual-visitor-report-2025/det-annual-visitor-report-2025.pdf" target="_blank" rel="noopener">Dubai DET 2025</a> · <a href="https://www.sharjahtourism.ae/news/sharjah-welcomed-1-6-million-hotel-guests-in-2024-reflecting-an-11-increase/" target="_blank" rel="noopener">Sharjah SCTDA 2024</a> · <a href="https://raktda.com/press-release-ras-al-khaimah-delivers-record-tourism-performance-in-2025-with-1-35m-overnight-visitors/" target="_blank" rel="noopener">RAK TDA 2025</a></span><b>Why</b><span>No single UAE-wide breakdown by nationality is published, so we combine the emirates' own data. Five markets lead in every emirate that reports: India, Russia/CIS, UK and Western Europe, China, and Saudi Arabia/GCC. These become our target markets.</span></div>
+  <div class="src" style="margin-top:14px"><b>Context</b><span>The 2026 regional conflict disrupted international travel (<a href="https://raktda.com/press-release-ras-al-khaimah-welcomes-record-visitors-in-first-half-of-2026-as-landmark-developments-advance/" target="_blank" rel="noopener">RAK TDA, H1 2026</a>). Trust signals such as a local office, private transfers and flexible conditions should be visible in our content.</span></div>
+</div></section>
+
+<section class="block" id="power"><div class="wrap">
+  <div class="head"><p class="eyebrow">02 · 7+1: official channels and partners</p><h2>The UAE's own channels can carry our content for free.</h2>
+  <p class="lede">The country and its seven emirates already have large official audiences. Hotels and commercial partners have their own. Our aim is to create content worth sharing so these accounts repost, tag and collaborate with UAE Grand Tour at no media cost.</p></div>
+
+  <h3 style="margin-bottom:12px">1 · Official tourism accounts (7 emirates + UAE)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Destination</th><th>Account</th><th class="r">Instagram</th><th class="r">Facebook</th><th class="r">TikTok</th></tr></thead>
+    <tbody>
+      <tr><td><b>UAE</b></td><td>Visit UAE · <a href="https://www.instagram.com/visituae/" target="_blank" rel="noopener">@visituae</a></td><td class="r">45K</td><td class="r">—</td><td class="r">—</td></tr>
+      <tr><td><b>Dubai</b></td><td>Visit Dubai · <a href="https://www.instagram.com/visit.dubai/" target="_blank" rel="noopener">@visit.dubai</a> / <a href="https://www.instagram.com/visitdubai/" target="_blank" rel="noopener">@visitdubai</a></td><td class="r">4M</td><td class="r">7.42M</td><td class="r">471K</td></tr>
+      <tr><td><b>Abu Dhabi</b></td><td>Visit Abu Dhabi · <a href="https://www.instagram.com/visitabudhabi/" target="_blank" rel="noopener">@visitabudhabi</a></td><td class="r">1M</td><td class="r">1.44M</td><td class="r">—</td></tr>
+      <tr><td><b>Sharjah</b></td><td>Visit Sharjah · <a href="https://www.instagram.com/visit_shj/" target="_blank" rel="noopener">@visit_shj</a> / <a href="https://www.instagram.com/visit_sharjah/" target="_blank" rel="noopener">@visit_sharjah</a></td><td class="r">96K</td><td class="r">75K</td><td class="r">37K</td></tr>
+      <tr><td><b>Ras Al Khaimah</b></td><td>Visit Ras Al Khaimah · <a href="https://www.instagram.com/visitrasalkhaimah/" target="_blank" rel="noopener">@visitrasalkhaimah</a></td><td class="r">103K</td><td class="r">284K</td><td class="r">144K</td></tr>
+      <tr><td><b>Umm Al Quwain</b></td><td>Visit UAQ · <a href="https://www.instagram.com/visitummalquwain/" target="_blank" rel="noopener">@visitummalquwain</a></td><td class="r">12K</td><td class="r">—</td><td class="r">—</td></tr>
+      <tr><td><b>Fujairah</b></td><td>Fujairah Tourism & Antiquities · <a href="https://www.instagram.com/fujairahtourism/" target="_blank" rel="noopener">@fujairahtourism</a></td><td class="r">10K</td><td class="r">2.6K</td><td class="r">—</td></tr>
+      <tr><td colspan="5" style="background:var(--surface-2)"><span class="tag">Tourism authorities</span></td></tr>
+      <tr><td>Dubai</td><td>Dubai DET · <a href="https://www.instagram.com/dubaidet/" target="_blank" rel="noopener">@dubaidet</a></td><td class="r">192K</td><td class="r">—</td><td class="r">—</td></tr>
+      <tr><td>Abu Dhabi</td><td>DCT Abu Dhabi · <a href="https://www.instagram.com/dctabudhabi/" target="_blank" rel="noopener">@dctabudhabi</a></td><td class="r">127K</td><td class="r">—</td><td class="r">—</td></tr>
+    </tbody>
+  </table></div>
+  <div class="src"><b>Source</b><span>Public profile pages, checked 12 Nov 2026. Handles taken from each authority's official website. "—" means no account found or not yet verified.</span><b>Why</b><span>Together these accounts reach millions of people already interested in the UAE. One repost or collaboration post can reach more people than months of our own posting.</span></div>
+
+  <div class="grid g3" style="margin-top:22px">
+    <div class="card"><h3>What we propose to them</h3><ul>
+      <li>Collaboration posts (Instagram Collab) on journeys that feature their emirate</li>
+      <li>Ready-to-share Reels and Stories with their hashtags</li>
+      <li>Itinerary content that sends visitors to their attractions and events</li>
+      <li>Monthly content pack sent to each tourism authority</li>
+    </ul></div>
+    <div class="card feature"><span class="tag">Recommendation</span><h3>Visit UAE + UAE Grand Tour</h3><p>The new national Visit UAE platform will be a key channel for Grand Tour sales. We recommend linking the two: Visit UAE inspires, UAE Grand Tour turns that interest into a journey.</p><p>No prices or sales on the Visit UAE site. In the background, a cookie-based connection lets us show UAE Grand Tour to people who visited Visit UAE, at very low cost per click.</p></div>
+    <div class="card"><h3>What we ask from them</h3><ul>
+      <li>Access to official photo and video libraries (Dubai and Abu Dhabi first)</li>
+      <li>Event calendars for weekly content</li>
+      <li>Reposts and tags on UAE Grand Tour content</li>
+      <li>Listing of UAE Grand Tour on their websites where possible</li>
+    </ul></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:28px">
+    <div><h3 style="margin-bottom:12px">2 · Hotels</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Hotel</th><th>Journey fit</th><th class="r">Instagram</th></tr></thead>
+        <tbody>
+          <tr><td>Atlantis The Palm, Dubai · <a href="https://www.instagram.com/atlantisthepalm/" target="_blank" rel="noopener">@atlantisthepalm</a></td><td>Grand Family</td><td class="r">1M</td></tr>
+          <tr><td>Emirates Palace Mandarin Oriental, Abu Dhabi · <a href="https://www.instagram.com/mo_emiratespalace/" target="_blank" rel="noopener">@mo_emiratespalace</a></td><td>Grand Classic, Culture</td><td class="r">231K</td></tr>
+          <tr><td>Ritz-Carlton Al Wadi Desert, RAK · <a href="https://www.instagram.com/ritzcarltonalwadidesert/" target="_blank" rel="noopener">@ritzcarltonalwadidesert</a></td><td>Adventure, Wellness</td><td class="r">49K</td></tr>
+          <tr><td>The Chedi Al Bait, Sharjah · <a href="https://www.instagram.com/thechedialbait/" target="_blank" rel="noopener">@thechedialbait</a></td><td>Culture & Heritage</td><td class="r">34K</td></tr>
+          <tr><td>Fairmont Fujairah Beach Resort · <a href="https://www.instagram.com/fairmontfujairah/" target="_blank" rel="noopener">@fairmontfujairah</a></td><td>Grand Beach, Eco</td><td class="r">28K</td></tr>
+        </tbody>
+      </table></div>
+      <div class="src"><b>Proposal</b><span>Candidate partners from the journeys' destinations. Collab posts, guest stories from the hotel, "where you stay on the Grand Tour" content. Final list agreed with UAE Grand Tour.</span></div>
+    </div>
+    <div><h3 style="margin-bottom:12px">3 · Attractions and commercial partners</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Partner</th><th class="r">Instagram</th><th class="r">Facebook</th><th class="r">TikTok</th></tr></thead>
+        <tbody>
+          <tr><td>Emirates · <a href="https://www.instagram.com/emirates/" target="_blank" rel="noopener">@emirates</a></td><td class="r">9M</td><td class="r">—</td><td class="r">—</td></tr>
+          <tr><td>Etihad · <a href="https://www.instagram.com/etihad/" target="_blank" rel="noopener">@etihad</a></td><td class="r">3M</td><td class="r">—</td><td class="r">—</td></tr>
+          <tr><td>Yas Island · <a href="https://www.instagram.com/yasisland/" target="_blank" rel="noopener">@yasisland</a></td><td class="r">913K</td><td class="r">305K</td><td class="r">718K</td></tr>
+          <tr><td>Louvre Abu Dhabi · <a href="https://www.instagram.com/louvreabudhabi/" target="_blank" rel="noopener">@louvreabudhabi</a></td><td class="r">302K</td><td class="r">253K</td><td class="r">24K</td></tr>
+          <tr><td>Museum of the Future · <a href="https://www.instagram.com/museumofthefuture/" target="_blank" rel="noopener">@museumofthefuture</a></td><td class="r">297K</td><td class="r">329K</td><td class="r">31K</td></tr>
+          <tr><td>Sharjah Art Foundation · <a href="https://www.instagram.com/sharjahart/" target="_blank" rel="noopener">@sharjahart</a></td><td class="r">138K</td><td class="r">—</td><td class="r">—</td></tr>
+          <tr><td>Al Ain Zoo · <a href="https://www.instagram.com/alainzoouae/" target="_blank" rel="noopener">@alainzoouae</a></td><td class="r">82K</td><td class="r">—</td><td class="r">—</td></tr>
+        </tbody>
+      </table></div>
+      <div class="src"><b>Proposal</b><span>Cross-marketing: every journey that includes their attraction becomes shareable content for them. Joint posts, ticket or experience mentions, event co-promotion. Airlines for "fly in, see seven" stories.</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="block" id="audience"><div class="wrap">
+  <div class="head"><p class="eyebrow">03 · Target audiences</p><h2>Who travels, and what they do.</h2></div>
+  <div class="grid g4">
+    <div class="card stat"><span class="num">44%</span><h3>Couples</h3><p class="small">Share of Dubai visitors travelling as couples (2025)</p></div>
+    <div class="card stat"><span class="num">18%</span><h3>Families with children</h3><p class="small">Plus 15% multi-generational groups</p></div>
+    <div class="card stat"><span class="num">49%</span><h3>Desert safari</h3><p class="small">Up from 43% in 2024</p></div>
+    <div class="card stat"><span class="num">64%</span><h3>Heritage districts</h3><p class="small">Beach and marine: 79%</p></div>
+  </div>
+  <div class="src"><b>Source</b><span><a href="https://www.dubaidet.gov.ae/en/research-and-insights/-/media/files/faqs/annual-visitor-report-2025/det-annual-visitor-report-2025.pdf" target="_blank" rel="noopener">Dubai DET Annual Visitor Report 2025</a> (party type and activity shares of Dubai visitors). 78% travel for leisure; average party size 2.8.</span><b>Why</b><span>Couples are the largest group, so Grand Classic and Culture lead. Families and multi-generational groups together make a third, which supports Grand Family. Rising desert and heritage interest supports Adventure and Culture & Heritage.</span></div>
+  <div class="tbl" style="margin-top:22px"><table>
+    <thead><tr><th>Audience</th><th>Profile</th><th>Journey</th><th>Channel</th></tr></thead>
+    <tbody>
+      <tr><td><b>Couples</b></td><td>35–60, Western Europe, culture and comfort</td><td>Grand Classic, Culture & Heritage</td><td>Instagram, Facebook, Google</td></tr>
+      <tr><td><b>Families and multi-generational groups</b></td><td>Planning around school holidays</td><td>Grand Family, City & Beach Escape</td><td>Instagram, Facebook, YouTube</td></tr>
+      <tr><td><b>Adventure seekers</b></td><td>25–45, research through video</td><td>Grand Adventure</td><td>Instagram Reels, TikTok, YouTube</td></tr>
+      <tr><td><b>Wellness and winter sun</b></td><td>40+, high income</td><td>Grand Wellness, Grand Beach</td><td>Instagram, Facebook, newsletter</td></tr>
+      <tr><td><b>Nature and eco travellers</b></td><td>Northern Europe, sustainability-minded</td><td>Grand Eco Friendly</td><td>Instagram, YouTube</td></tr>
+      <tr><td><b>Travel trade partners</b></td><td>Agencies and tour operators</td><td>All journeys</td><td>Partner programme, LinkedIn, newsletter</td></tr>
+    </tbody>
+  </table></div>
+  <div class="src"><b>Next step</b><span>An interest-volume analysis for the points of interest on each journey (Rocket DMC + PMA data) will be added to size each audience.</span></div>
+</div></section>
+
+<section class="block" id="funnel"><div class="wrap">
+  <div class="head"><p class="eyebrow">04 · From visibility to sales</p><h2>Every post has a job in the sales funnel.</h2>
+  <p class="lede">We do not commit to follower or reach targets. We commit to output: the posts, channels and partner work in this plan. What we measure is how that work moves people towards a booking.</p></div>
+  <div class="stages">
+    <div class="stage"><span class="tag">1 · Visibility</span><h3>Inspire</h3><p class="ex">"828 metres. The world's tallest building is just the first day of your Grand Tour."</p><p class="small">Iconic places, big visuals, emotion.</p></div>
+    <div class="stage"><span class="tag">2 · Interest</span><h3>Explain</h3><p class="ex">"Louvre Abu Dhabi: 4 things to see and the journey that takes you there."</p><p class="small">Points of interest one by one, events, best time to visit.</p></div>
+    <div class="stage"><span class="tag">3 · Demand</span><h3>Call to action</h3><p class="ex">"Don't miss 2027's journey of the year: desert, sea, mountains and culture in 11 days. From $X."</p><p class="small">Occasions: Black Friday, Easter, Eid, birthdays ("celebrate your 50th in the desert").</p></div>
+    <div class="stage"><span class="tag">4 · Sales</span><h3>Convert</h3><p class="ex">"Your private quote within 24 hours. Message us on WhatsApp."</p><p class="small">Direct path to a quote or booking.</p></div>
+  </div>
+  <div class="tbl" style="margin-top:22px"><table>
+    <thead><tr><th>Stage</th><th>What we track (sales-oriented)</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td><b>Visibility</b></td><td>Reach, video views, reposts by partner accounts</td><td>Meta, TikTok, YouTube, ARNOLD</td></tr>
+      <tr><td><b>Interest</b></td><td>Saves, shares, profile visits, clicks to journey pages</td><td>Meta, GA4 + UTM</td></tr>
+      <tr><td><b>Demand</b></td><td>Quote requests, WhatsApp conversations, newsletter sign-ups, booking starts</td><td>GA4, WhatsApp, ARNOLD</td></tr>
+      <tr><td><b>Sales</b></td><td>Bookings and revenue per journey, by source content</td><td>ARNOLD (with UAE Grand Tour sales data)</td></tr>
+      <tr><td><b>Partners</b></td><td>Partner applications, workshop attendees, partner bookings</td><td>ARNOLD</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid g3" style="margin-top:22px">
+    <div class="card"><span class="tag">Our commitment</span><h3>Every week</h3><p>3 videos, 2 carousels, daily Stories, 1 event post, 1 partner post, 1 Google post. Newsletter every two weeks.</p></div>
+    <div class="card"><span class="tag">Our commitment</span><h3>Every month</h3><p>Content pack to tourism authorities and partner hotels, influencer collaboration, monthly results review.</p></div>
+    <div class="card"><span class="tag">Recommendation</span><h3>PR campaigns</h3><p>We will suggest social-media-led PR ideas to the UAE Grand Tour PR team (for example a photo contest across the seven emirates) so their PR work also grows our channels.</p></div>
+  </div>
+</div></section>
+
+<section class="block" id="message"><div class="wrap">
+  <div class="head"><p class="eyebrow">05 · How we market UAE Grand Tour</p><h2>The UAE is more than one city.</h2></div>
+  <div class="grid g3">
+    <div class="card"><h3>Core message</h3><p><b>One Country. Seven Emirates. One Journey.</b> Every emirate has its own character, and the Grand Tour brings them together in one planned journey.</p></div>
+    <div class="card"><h3>Product first</h3><p>We market journeys and experiences, not emirates one by one: what you will see, what you will feel, and which journey takes you there.</p></div>
+    <div class="card"><h3>Sell a feeling</h3><p>The site packages journeys by feeling: adventure, calm, family, culture, nature. "How do you want to feel?" is the central idea.</p></div>
+    <div class="card"><h3>Trust</h3><p>Local office and operation, 4–5 star hotels, private vehicle and guide, real footage from our own guides.</p></div>
+    <div class="card"><h3>Living calendar</h3><p>Something happens in the UAE every week: exhibitions, concerts, festivals, sports. We turn the event calendar into daily content.</p></div>
+    <div class="card"><h3>Occasions</h3><p>National Day, New Year, Black Friday, Easter, Eid, school holidays, birthdays and anniversaries.</p></div>
+  </div>
+</div></section>
+
+<section class="block" id="production"><div class="wrap">
+  <div class="head"><p class="eyebrow">06 · How we produce content</p><h2>Produce once, publish everywhere.</h2>
+  <p class="lede">Content is planned and approved one week ahead. Each piece is adapted to every relevant platform.</p></div>
+  <div class="flow" style="margin-bottom:22px">
+    <div><b>Monday</b><span>Week plan in ARNOLD; briefs written</span></div>
+    <div><b>Tuesday</b><span>Production: videos and carousels</span></div>
+    <div><b>Wednesday</b><span>Copy, partner posts, newsletter</span></div>
+    <div><b>Thursday</b><span>UAE Grand Tour approval</span></div>
+    <div><b>Friday</b><span>Next week scheduled; report data collected</span></div>
+  </div>
+  <div class="grid g2">
+    <div class="card"><h3>Content sources</h3><ul>
+      <li><b>UAE tourism assets:</b> official photo and video libraries; we request everything available from Dubai and Abu Dhabi first</li>
+      <li><b>Our tour guides:</b> 3 short clips from every tour. Real, trusted footage</li>
+      <li><b>Partner hotels and Rocket DMC:</b> press kits and approved images</li>
+      <li><b>Guests (UGC):</b> shared with permission</li>
+      <li><b>Influencer content:</b> with usage rights</li>
+      <li><b>Last resort:</b> licensed stock footage</li>
+    </ul></div>
+    <div class="card"><h3>Formats</h3><ul>
+      <li><b>Vertical video (7–20 s):</b> hook in the first 2 seconds, on-screen text, clear call to action</li>
+      <li><b>Carousel (6–8 slides):</b> cover, day by day, who it suits, "Plan your journey"</li>
+      <li><b>Stories:</b> polls, quizzes, question box, link sticker</li>
+      <li><b>Tone:</b> the website's voice; short, sensory, calm. Language: English</li>
+    </ul></div>
+    <div class="card"><h3>Recurring series</h3><ul>
+      <li><b>This Week in the UAE:</b> the most important events of the week across the country</li>
+      <li><b>11 Days, 60 Seconds:</b> a journey told in one minute</li>
+      <li><b>Choose a Feeling:</b> Story quiz with a journey suggestion</li>
+      <li><b>Guide's Corner:</b> local knowledge from our guides</li>
+      <li><b>Planning Friday:</b> best time to visit, visas, what to wear</li>
+    </ul></div>
+    <div class="card"><h3>Event calendar</h3><p>Every week we pull the key events from official calendars (Visit Dubai, Visit Abu Dhabi and the other emirates): an exhibition at Louvre Abu Dhabi, a concert, a festival, a sports weekend. Each becomes a post, a Story and a reason to travel, linked to the journey that fits.</p></div>
+  </div>
+</div></section>
+
+<section class="block" id="examples"><div class="wrap">
+  <div class="head"><p class="eyebrow">07 · Example content</p><h2>What the posts and Stories look like.</h2>
+  <p class="lede">Ten examples across the funnel. Visuals are layout sketches; final versions use UAE tourism assets and our guides' footage. Captions are written in English, the publishing language.</p></div>
+  <h3 style="margin-bottom:6px">Visual examples</h3><p class="small" style="margin-bottom:16px">Four ready-to-post visuals: three feed posts and one Story. The other examples below show copy and layout.</p>
+  <div class="vis-grid" id="exVisual"></div>
+  <h3 style="margin:34px 0 14px">All formats</h3>
+  <div class="ex-grid" id="exGrid"></div>
+</div></section>
+
+<section class="block" id="platform"><div class="wrap">
+  <div class="head"><p class="eyebrow">08 · Platform by platform</p><h2>Instagram, Facebook, YouTube and newsletter lead.</h2>
+  <p class="lede">Times in UAE time (GST). 19:00 is evening in the Gulf and afternoon in Europe; 12:00 is morning in Europe.</p></div>
+  <div class="grid g2">
+    <div class="card plat"><h3><span class="pl IG">IG</span>Instagram</h3><dl>
+      <dt>Job</dt><dd>Shop window and main sales channel</dd>
+      <dt>Frequency</dt><dd>3 Reels + 2 carousels a week, daily Stories, Collab posts with partners</dd>
+      <dt>Sales KPI</dt><dd>Link clicks, WhatsApp messages, quote requests</dd>
+    </dl></div>
+    <div class="card plat"><h3><span class="pl FB">FB</span>Facebook</h3><dl>
+      <dt>Job</dt><dd>40+ and European audiences, families</dd>
+      <dt>Frequency</dt><dd>Instagram content published together via Meta Business Suite, plus events</dd>
+      <dt>Sales KPI</dt><dd>Link clicks, messages, quote requests</dd>
+    </dl></div>
+    <div class="card plat"><h3><span class="pl YT">YT</span>YouTube</h3><dl>
+      <dt>Job</dt><dd>Research stage ("UAE 10 day itinerary")</dd>
+      <dt>Frequency</dt><dd>2 Shorts a week; 1 long journey video every two weeks</dd>
+      <dt>Sales KPI</dt><dd>Clicks to journey pages, watch time on journey videos</dd>
+    </dl></div>
+    <div class="card plat"><h3><span class="pl EM">EM</span>Newsletter</h3><dl>
+      <dt>Job</dt><dd>Our own audience, direct path to quotes</dd>
+      <dt>Frequency</dt><dd>Every two weeks; partner newsletter monthly</dd>
+      <dt>Sales KPI</dt><dd>Clicks, quote requests, bookings</dd>
+    </dl></div>
+    <div class="card plat"><h3><span class="pl TT">TT</span>TikTok</h3><dl>
+      <dt>Job</dt><dd>Discovery for adventure and younger audiences</dd>
+      <dt>Frequency</dt><dd>3 videos a week (adapted from Instagram)</dd>
+      <dt>Sales KPI</dt><dd>Profile link clicks</dd>
+    </dl></div>
+    <div class="card plat"><h3><span class="pl GB">GB</span>Google Business Profile</h3><dl>
+      <dt>Job</dt><dd>Be found on Google and Maps, reviews</dd>
+      <dt>Frequency</dt><dd>1 post a week, reply to every review</dd>
+      <dt>Sales KPI</dt><dd>Website clicks, calls, direction requests</dd>
+    </dl></div>
+  </div>
+</div></section>
+
+<section class="block" id="channel"><div class="wrap">
+  <div class="head"><p class="eyebrow">09 · Channel by channel</p><h2>Where UAE Grand Tour shows up.</h2></div>
+  <div class="grid g4">
+    <div class="card"><span class="tag">Our own channels</span><h3>We control them</h3><ul><li>Website and journey pages</li><li>WhatsApp Business</li><li>Google Business Profile</li><li>Newsletter</li></ul></div>
+    <div class="card"><span class="tag">Social platforms</span><h3>Our accounts</h3><ul><li>Instagram, Facebook, YouTube</li><li>TikTok</li><li>LinkedIn for partners</li></ul></div>
+    <div class="card"><span class="tag">Partner channels</span><h3>Others share us</h3><ul><li>7+1 official tourism accounts</li><li>Hotels and attractions</li><li>Influencers and guests</li><li>Travel trade partners</li></ul></div>
+    <div class="card"><span class="tag">Paid</span><h3>After three months</h3><ul><li>Meta, Google, YouTube, TikTok</li><li>Planned on organic results</li></ul><a class="small" href="#paid">Paid media →</a></div>
+  </div>
+  <div class="grid g2" style="margin-top:22px">
+    <div class="card"><h3>Influencer programme</h3><ul>
+      <li><b>Micro (10K–100K):</b> 1–2 collaborations a month, high engagement</li>
+      <li><b>Mid-tier (100K–500K):</b> one name from a primary market in January</li>
+      <li><b>Nano and guests:</b> content in exchange for experiences</li>
+      <li><b>Selection:</b> at least 40% of followers in target markets, engagement above 3%, fake-follower check</li>
+      <li><b>Contract:</b> deliverables, personal code and UTM link, 6-month usage rights</li>
+    </ul></div>
+    <div class="card"><h3>Influencer tracking (ARNOLD card)</h3>
+      <div class="tbl" style="border:0"><table>
+        <thead><tr><th>Stage</th><th>Tracked</th></tr></thead>
+        <tbody>
+          <tr><td><b>Selection</b></td><td>Followers, engagement, audience country</td></tr>
+          <tr><td><b>Agreement</b></td><td>Deliverables, dates, code, link, usage rights</td></tr>
+          <tr><td><b>Publishing</b></td><td>Links, dates, tag check</td></tr>
+          <tr><td><b>Day 7</b></td><td>Reach, views, clicks</td></tr>
+          <tr><td><b>Day 30</b></td><td>Code use, quote requests, bookings</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="block" id="partners"><div class="wrap">
+  <div class="head"><p class="eyebrow">10 · Partners (B2B)</p><h2>Sell UAE Grand Tour, earn with us.</h2>
+  <p class="lede">Travel agencies and tour operators can sell the journeys to their own clients. We announce a partner programme and bring agents in through education.</p></div>
+  <div class="grid g3">
+    <div class="card"><h3>Partner programme</h3><p>Announced on LinkedIn, in the newsletter and on social media with a sign-up link. Commission and conditions are shared only after sign-up.</p></div>
+    <div class="card"><h3>Online workshops</h3><p>Short webinars for agents: what UAE Grand Tour is, how to sell each journey, how much a partner earns. Recorded and reused.</p></div>
+    <div class="card"><h3>LinkedIn</h3><p>The channel for the partner programme: company page posts, workshop announcements, journey PDFs for agents.</p></div>
+  </div>
+</div></section>
+
+<section class="block" id="takvim"><div class="wrap">
+  <div class="head"><p class="eyebrow">11 · Content and post plan · day by day</p><h2>Every day from 20 November to 31 January.</h2>
+  <p class="lede">Planned by product, not by emirate. Each week has a journey in focus, while daily posts move freely across the country's places and events. Each row shows its funnel stage, platforms and ARNOLD ID.</p></div>
+  <div class="tbl" style="margin-bottom:24px"><table id="weeksTable">
+    <thead><tr><th>Week</th><th>Dates</th><th>Journey in focus</th><th>Occasion</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Month" id="monthSeg">
+      <button data-m="11" aria-pressed="true">November</button>
+      <button data-m="12" aria-pressed="false">December</button>
+      <button data-m="1" aria-pressed="false">January</button>
+      <button data-m="all" aria-pressed="false">All</button>
+    </div>
+    <div class="chips" id="platChips" aria-label="Platform filter"></div>
+    <button class="pill" id="copyCsv" type="button">Copy CSV for ARNOLD</button>
+  </div>
+  <div class="summary" id="calSummary"></div>
+  <div class="cal" id="cal"></div>
+</div></section>
+
+<section class="block" id="yayin"><div class="wrap">
+  <div class="head"><p class="eyebrow">12 · Media and publishing plan</p><h2>The same rhythm every week.</h2></div>
+  <div class="tbl"><table class="matrix">
+    <thead><tr><th>GST</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr></thead>
+    <tbody>
+      <tr><td><b>10:00–11:00</b></td><td></td><td></td><td><span class="pl GB">GB</span> Google post · <span class="pl EM">EM</span> Newsletter (biweekly)</td><td><span class="pl LI">LI</span> Partner post</td><td></td><td></td><td></td></tr>
+      <tr><td><b>12:00–12:30</b></td><td><span class="pl IG">IG</span> Story poll</td><td></td><td></td><td><span class="pl IG">IG</span> Story Q&amp;A</td><td></td><td><span class="pl IG">IG</span><span class="pl TT">TT</span> Guide's Corner</td><td></td></tr>
+      <tr><td><b>16:00–18:00</b></td><td></td><td></td><td></td><td></td><td><span class="pl IG">IG</span><span class="pl FB">FB</span> Planning Friday</td><td></td><td><span class="pl YT">YT</span> Long video (biweekly) · <span class="pl IG">IG</span> Story recap</td></tr>
+      <tr><td><b>19:00</b></td><td><span class="pl IG">IG</span><span class="pl FB">FB</span><span class="pl TT">TT</span><span class="pl YT">YT</span> Visibility video</td><td><span class="pl IG">IG</span><span class="pl FB">FB</span> Interest carousel</td><td><span class="pl IG">IG</span><span class="pl FB">FB</span><span class="pl TT">TT</span><span class="pl YT">YT</span> This Week in the UAE</td><td><span class="pl IG">IG</span><span class="pl FB">FB</span> Demand post</td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table></div>
+  <div class="tbl" style="margin-top:20px"><table>
+    <thead><tr><th>Platform</th><th class="r">3-month total</th><th>Note</th></tr></thead>
+    <tbody id="volRows"></tbody>
+  </table></div>
+</div></section>
+
+<section class="block" id="paid"><div class="wrap">
+  <div class="head"><p class="eyebrow">13 · Paid media</p><h2>Three months organic, then paid on evidence.</h2>
+  <p class="lede">For the first three months we run without paid media. The reactions we collect show which journeys, messages, markets and platforms work. Paid media is then planned on that evidence rather than guesswork.</p></div>
+  <div class="grid g3">
+    <div class="card"><h3>What we learn in three months</h3><ul><li>Which journeys get the most interest</li><li>Which markets react</li><li>Which content formats lead to quote requests</li><li>Which partner channels bring traffic</li></ul></div>
+    <div class="card"><h3>What we will then propose</h3><ul><li>Meta (Instagram + Facebook)</li><li>Google Search and YouTube</li><li>TikTok, if organic results support it</li><li>Retargeting of Visit UAE and website visitors</li></ul></div>
+    <div class="card"><h3>What we prepare now</h3><ul><li>Meta Pixel and Conversions API</li><li>GA4 conversion events</li><li>A real enquiry form instead of e-mail links</li><li>Audiences that build up for later</li></ul></div>
+  </div>
+</div></section>
+
+<section class="block" id="arnold"><div class="wrap">
+  <div class="head"><p class="eyebrow">14 · ARNOLD and weekly activity report</p><h2>Everything tracked, reported every Monday.</h2>
+  <p class="lede">ARNOLD gets a module for non-hotel projects. UAE Grand Tour is the first; future Grand Tours and other projects use the same structure.</p></div>
+  <div class="grid g4" style="margin-bottom:20px">
+    <div class="card"><h3>Social media</h3><p class="small">Content calendar, approvals, publishing status, metrics</p></div>
+    <div class="card"><h3>SEO and GEO</h3><p class="small">Search visibility, AI search visibility, Google Business</p></div>
+    <div class="card"><h3>Ads</h3><p class="small">Ready for paid campaigns after month three</p></div>
+    <div class="card"><h3>Management</h3><p class="small">Tasks, tickets, website panel, reporting</p></div>
+  </div>
+  <div class="status" style="margin-bottom:20px">
+    <div><b>1 · Plan</b><span>Imported from calendar</span></div>
+    <div><b>2 · Production</b><span>Design, video, copy</span></div>
+    <div><b>3 · Approval</b><span>UAE Grand Tour, 48 h</span></div>
+    <div><b>4 · Scheduled</b><span>On platform</span></div>
+    <div><b>5 · Live</b><span>Link added</span></div>
+    <div><b>6 · Reported</b><span>48-hour metrics</span></div>
+  </div>
+  <div class="grid g2">
+    <div class="card"><h3>Naming</h3>
+      <p>Content ID: <code>UGT-261123-V1</code> <span class="small">(date, V video / C carousel / S story / L LinkedIn / G Google / E newsletter)</span></p>
+      <p>Post ID: <code>UGT-261123-V1-IG</code></p>
+      <p>UTM: <code>utm_source=instagram&amp;utm_medium=organic_social&amp;utm_campaign=ugt_w1_grandclassic&amp;utm_content=UGT-261123-V1</code></p>
+      <p class="small">Quote requests and bookings are logged with the same ID, so we can see which content led to a sale.</p>
+    </div>
+    <div class="card"><h3>Weekly report contents</h3><ul>
+      <li>Planned vs published posts</li>
+      <li>Funnel results: visibility, interest, demand, sales</li>
+      <li>Top 3 posts and why they worked</li>
+      <li>Partner channel activity: reposts, collabs, mentions</li>
+      <li>Quote requests and bookings by source</li>
+      <li>Three actions for next week</li>
+    </ul></div>
+  </div>
+  <div class="toolbar" style="margin-top:22px"><label for="weekSel" class="small">Week</label><select id="weekSel"></select><span class="small" id="repDate"></span></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Platform</th><th class="r">Planned</th><th class="r">Published</th><th class="r">Reach</th><th class="r">Clicks</th><th class="r">Quote requests</th><th class="r">Bookings</th></tr></thead>
+    <tbody id="repRows"></tbody>
+  </table></div>
+</div></section>
+
+<section class="block" id="start"><div class="wrap">
+  <div class="head"><p class="eyebrow">15 · Kick-off</p><h2>We start on Friday.</h2></div>
+  <div class="grid g2">
+    <div class="steps">
+      <div class="step"><span class="when">Thu 12 Nov</span><h3>Internal meeting</h3><p class="small">Plan reviewed and revised.</p></div>
+      <div class="step now"><span class="when">Fri 13 Nov</span><h3>Work starts</h3><p class="small">Accounts, ARNOLD module, asset requests to tourism authorities and partners.</p></div>
+      <div class="step"><span class="when">Fri 13 – Mon 16 Nov</span><h3>Presentation to the UAE Grand Tour team</h3><p class="small">Walk-through of the plan and approval.</p></div>
+      <div class="step"><span class="when">13–19 Nov</span><h3>Setup and content bank</h3><p class="small">Templates, first two weeks of content, partner outreach.</p></div>
+      <div class="step"><span class="when">Fri 20 Nov</span><h3>First posts</h3><p class="small">Launch video on every platform. First weekly report Mon 23 Nov.</p></div>
+    </div>
+    <div class="card"><h3>What we need</h3><ul>
+      <li>Brand assets: logo, film, photo archive</li>
+      <li>List of UAE Grand Tour's own and partner hotels</li>
+      <li>Introductions to Dubai and Abu Dhabi tourism teams for assets</li>
+      <li>Offer policy for occasions (Black Friday, Easter, early booking)</li>
+      <li>Short clips from tour guides</li>
+      <li>Contact at the Visit UAE platform</li>
+    </ul></div>
+  </div>
+</div></section>
+</main>
+
+<footer lang="en"><div class="wrap"><span>UAE Grand Tour · Media plan November 2026 – January 2027</span><span>Prepared by · PMA Partner</span></div></footer>
+<div class="toast" id="toast" hidden></div>
+</template>
+<script>
+(function(){
+var root=document.getElementById('root');
+var L={
+ en:{PL:{IG:'Instagram',FB:'Facebook',YT:'YouTube',TT:'TikTok',EM:'Newsletter',GB:'Google Business',LI:'LinkedIn'},D:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],M:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+  st:{V:'Visibility',I:'Interest',D:'Demand',S:'Sales',P:'Partners'},days:'days',pieces:'pieces',posts:'posts',none:'No posts on the selected platforms this day.',copied:function(n){return n+' post rows copied'},sel:'Text selected, press Ctrl+C to copy',
+  csv:['Post ID','Content ID','Date','Time (GST)','Platform','Format','Topic','Funnel stage','Week','UTM campaign','Status'],status:'Plan',total:'Total',report:'Report',W:'W',
+  vol:{IG:'Reels, carousels, Stories, collabs',FB:'Published with Instagram',YT:'Shorts + long videos',TT:'Adapted from Instagram',EM:'Biweekly + monthly partner newsletter',GB:'Weekly post',LI:'Partner programme'}},
+ tr:{PL:{IG:'Instagram',FB:'Facebook',YT:'YouTube',TT:'TikTok',EM:'Bülten',GB:'Google Business',LI:'LinkedIn'},D:['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'],M:['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'],
+  st:{V:'Görünürlük',I:'İlgi',D:'Talep',S:'Satış',P:'Partner'},days:'gün',pieces:'içerik',posts:'yayın',none:'Bu gün seçili platformlarda yayın yok.',copied:function(n){return n+' yayın satırı kopyalandı'},sel:'Metin seçildi, Ctrl+C ile kopyalayın',
+  csv:['Yayın ID','İçerik ID','Tarih','Saat (GST)','Platform','Format','Konu','Huni aşaması','Hafta','UTM kampanya','Durum'],status:'Plan',total:'Toplam',report:'Rapor',W:'H',
+  vol:{IG:'Reel, carousel, Story, ortak gönderi',FB:'Instagram ile birlikte',YT:'Shorts + uzun video',TT:'Instagram\'dan uyarlanmış',EM:'2 haftada 1 + aylık partner bülteni',GB:'Haftalık gönderi',LI:'Partner programı'}}
+};
+var U=function(y,m,d){return new Date(Date.UTC(y,m-1,d))};
+var WEEKS=[
+ {from:U(2026,11,20),to:U(2026,11,22),p:'All journeys',pt:'Tüm rotalar',o:'Launch',ot:'Lansman',c:'launch'},
+ {from:U(2026,11,23),to:U(2026,11,29),p:'Grand Classic',o:'Black Friday 27 Nov',ot:'Black Friday 27 Kas',c:'grandclassic'},
+ {from:U(2026,11,30),to:U(2026,12,6),p:'Grand Culture & Heritage',o:'Commemoration Day 30 Nov · National Day 2 Dec',ot:'Anma Günü 30 Kas · Ulusal Gün 2 Ara',c:'culture'},
+ {from:U(2026,12,7),to:U(2026,12,13),p:'Grand Adventure',o:'',c:'adventure'},
+ {from:U(2026,12,14),to:U(2026,12,20),p:'Grand Family',o:'School holidays begin',ot:'Okul tatilleri başlıyor',c:'family'},
+ {from:U(2026,12,21),to:U(2026,12,27),p:'City & Beach Escape',o:'Christmas 24–25 Dec',ot:'Noel 24–25 Ara',c:'citybeach'},
+ {from:U(2026,12,28),to:U(2027,1,3),p:'Grand Classic',o:'New Year',ot:'Yılbaşı',c:'newyear'},
+ {from:U(2027,1,4),to:U(2027,1,10),p:'Grand Wellness',o:'New year, new start',ot:'Yeni yıl, yeni başlangıç',c:'wellness'},
+ {from:U(2027,1,11),to:U(2027,1,17),p:'Grand Eco Friendly',o:'Partner workshop 14 Jan',ot:'Partner workshop 14 Oca',c:'eco'},
+ {from:U(2027,1,18),to:U(2027,1,24),p:'Grand Beach',o:'Winter sun',ot:'Kış güneşi',c:'beach'},
+ {from:U(2027,1,25),to:U(2027,1,31),p:'All journeys compared',pt:'Tüm rotalar karşılaştırma',o:'Early booking · Easter 2027',ot:'Erken rezervasyon · Paskalya 2027',c:'earlybooking'}
+];
+var POI=[
+ ['Burj Khalifa','828 metres above Dubai','Dubai\'nin 828 metre üstünde'],
+ ['Louvre Abu Dhabi','art under a dome of light','ışık kubbesi altında sanat'],
+ ['Jebel Jais','the highest peak in the UAE','BAE\'nin en yüksek zirvesi'],
+ ['Al Ain Oasis','a UNESCO-listed palm oasis','UNESCO listesindeki palmiye vahası'],
+ ['Sheikh Zayed Grand Mosque','white marble and silence','beyaz mermer ve sessizlik'],
+ ['Fujairah coast','where mountains meet the sea','dağın denizle buluştuğu yer'],
+ ['Sharjah Arts Area','stories kept alive','yaşatılan hikâyeler'],
+ ['Liwa dunes','the edge of the Empty Quarter','Rub\' al Khali\'nin kıyısı'],
+ ['Museum of the Future','a building that looks ahead','geleceğe bakan bina'],
+ ['Al Zorah mangroves','a quieter shore in Ajman','Ajman\'da sakin bir kıyı'],
+ ['Qasr Al Watan','the presidential palace','cumhurbaşkanlığı sarayı'],
+ ['Hatta','mountains, lakes and kayaks','dağlar, göller ve kano'],
+ ['Mleiha','desert archaeology in Sharjah','Sharjah\'ta çöl arkeolojisi'],
+ ['Umm Al Quwain lagoons','nature at the water\'s edge','suyun kıyısında doğa'],
+ ['Dubai Creek','abra rides and old souks','abra yolculuğu ve eski çarşılar'],
+ ['Saadiyat Island','beaches and culture','plajlar ve kültür'],
+ ['Dhayah Fort','Ras Al Khaimah\'s hilltop fort','Ras Al Khaimah\'ın tepe kalesi'],
+ ['Jebel Hafeet','the road to Al Ain\'s summit','Al Ain zirvesine yol'],
+ ['Yas Island','family adventure in Abu Dhabi','Abu Dhabi\'de aile macerası'],
+ ['Kalba mangroves','Sharjah\'s east coast wildlife','Sharjah\'ın doğu kıyısında doğa']
+];
+var EMAIL={'2026-11-25':['Black Friday: plan your 2027 Grand Tour','Black Friday: 2027 Grand Tour\'unu planla'],'2026-12-02':['Seven as One: UAE National Day','Seven as One: BAE Ulusal Günü'],'2026-12-09':['Partner programme launch','Partner programı lansmanı',1],'2026-12-16':['Gift a journey','Bir yolculuk hediye et'],'2026-12-30':['2027: the year to see all seven','2027: yediyi de görme yılı'],'2027-01-13':['Partner workshop invitation','Partner workshop daveti',1],'2027-01-20':['Winter sun: Grand Beach','Kış güneşi: Grand Beach'],'2027-01-27':['Plan Easter 2027: 10 journeys in one table','Paskalya 2027\'yi planla: 10 rota tek tabloda']};
+var V4=['IG','FB','TT','YT'];
+function key(d){return d.toISOString().slice(0,10)}
+
+function buildPlan(lang){
+ var tr=lang==='tr', plan=[], pi=0, curW=null;
+ function I(t,k,ps,s,f,ti){return {t:t,k:k,ps:ps,s:s,f:f,ti:ti}}
+ var F=tr?{v:'Video',c:'Carousel',s:'Story',g:'Google gönderisi',l:'LinkedIn gönderisi',e:'Bülten',ev:'Etkinlik'}:{v:'Video',c:'Carousel',s:'Story',g:'Google post',l:'LinkedIn post',e:'Newsletter',ev:'Event'};
+ function base(d,w){var pr=tr&&w.pt?w.pt:w.p, dow=d.getUTCDay();
+  if(curW!==w){curW=w;w._poi=POI[pi%POI.length];pi++;}
+  var p=w._poi||POI[0], nm=p[0], hook=tr?p[2]:p[1];
+  switch(dow){
+   case 1:return[I('12:30','S',['IG'],'I',F.s,tr?'Anket: '+nm+' listende var mı?':'Poll: is '+nm+' on your list?'),I('19:00','V',V4,'V',F.v,nm+': '+hook+(tr?'. Grand Tour\'unuzun bir günü.':'. One day of your Grand Tour.'))];
+   case 2:return[I('19:00','C',['IG','FB'],'I',F.c,tr?nm+': görmeniz gerekenler, en iyi zaman, sizi götüren rota':nm+': what to see, when to go, the journey that takes you')];
+   case 3:return[I('11:00','G',['GB'],'D',F.g,pr+(tr?': Plan your journey':': Plan your journey')),I('19:00','V',V4,'I',F.ev,tr?'This Week in the UAE: haftanın öne çıkan etkinlikleri':'This Week in the UAE: the week\'s key events')];
+   case 4:return[I('10:00','L',['LI'],'P',F.l,tr?'Partner programı: '+pr+' rotasını satın, kazanın':'Partner programme: sell '+pr+' and earn'),I('12:30','S',['IG'],'I',F.s,tr?'Soru-cevap: rota hakkında merak edilenler':'Q&A: your questions about the journey'),I('19:00','C',['IG','FB'],'D',F.c,tr?pr+': kaçırma. Size özel fiyat 24 saatte':'Don\'t miss '+pr+'. Your private quote within 24 hours')];
+   case 5:return[I('17:00','C',['IG','FB'],'I',F.c,tr?'Planlama Cuması: en iyi ziyaret zamanı, vize, ne giyilir':'Planning Friday: best time to visit, visas, what to wear')];
+   case 6:return[I('12:00','V',['IG','TT'],'V',F.v,tr?'Rehberin Köşesi: rehberimizin kamerasından '+nm:'Guide\'s Corner: '+nm+' through our guide\'s camera')];
+   case 0:var r=[I('18:00','S',['IG'],'S',F.s,tr?'Haftanın özeti + WhatsApp\'tan teklif al':'Week recap + get a quote on WhatsApp')];
+     if(WEEKS.indexOf(w)%2===1)r.unshift(I('16:00','V',['YT'],'I',tr?'Uzun video':'Long video',tr?'11 Gün, 60 Saniye: '+pr:'11 Days, 60 Seconds: '+pr));return r;}
+ }
+ var SP={
+  '2026-11-20':{b:['Launch','Lansman'],r:1,it:[I('10:00','L',['LI'],'P',F.l,tr?'UAE Grand Tour yayında: partnerler için 10 rota':'UAE Grand Tour is live: 10 journeys for partners'),I('11:00','G',['GB'],'V',F.g,tr?'Profil açılışı':'Profile launch'),I('19:00','V',V4,'V',F.v,'One Country. Seven Emirates. One Journey.')]},
+  '2026-11-21':{b:['Launch','Lansman'],r:1,it:[I('12:00','C',['IG','FB'],'I',F.c,tr?'10 rota, 10 farklı duygu':'10 journeys, 10 feelings')]},
+  '2026-11-22':{b:['Launch','Lansman'],r:1,it:[I('18:00','S',['IG'],'I',F.s,'Choose a Feeling quiz')]},
+  '2026-11-27':{b:['Black Friday','Black Friday'],it:[I('10:00','S',['IG','FB'],'D',F.s,tr?'Black Friday: 2027 Grand Tour erken rezervasyon (teklif UAE Grand Tour onayıyla)':'Black Friday: 2027 Grand Tour early booking (offer subject to UAE Grand Tour approval)')]},
+  '2026-11-30':{b:['Commemoration Day','Anma Günü'],r:1,note:[ 'Day of remembrance: one respectful post, no promotion.','Saygı günü: tek sade paylaşım, promosyon yok.'],it:[I('10:00','C',['IG','FB','LI'],'V',tr?'Görsel':'Image',tr?'Commemoration Day saygı paylaşımı':'Commemoration Day tribute')]},
+  '2026-12-02':{b:['National Day','Ulusal Gün'],r:1,it:[I('10:00','V',V4,'V',F.v,'Seven as One: Eid Al Etihad'),I('10:00','L',['LI'],'P',F.l,tr?'BAE Ulusal Günü kutlaması':'Celebrating UAE National Day'),I('19:00','S',['IG'],'I',F.s,tr?'Ulusal Gün etkinlikleri, yedi emirlikte':'National Day events across the seven emirates')]},
+  '2026-12-24':{b:['Christmas','Noel'],it:[I('12:00','S',['IG'],'D',F.s,tr?'Bir yolculuk hediye et':'Gift a journey')]},
+  '2026-12-31':{b:['New Year\'s Eve','Yılbaşı'],r:1,it:[I('19:00','V',['IG','FB','TT'],'V',F.v,tr?'Havai fişeklerden ilk ışığa: 2027\'ye yolda başla':'From fireworks to first light: start 2027 on the road')]},
+  '2027-01-01':{b:['New Year','Yeni yıl'],r:1,it:[I('12:00','C',['IG','FB'],'D',F.c,tr?'2027\'nin yolculuğunu kaçırma: çölden denize, dağdan kültüre':'Don\'t miss 2027\'s journey: desert, sea, mountains, culture')]},
+  '2027-01-14':{b:['Partner workshop','Partner workshop'],it:[I('15:00','L',['LI'],'P',tr?'Online workshop':'Online workshop',tr?'Canlı: UAE Grand Tour nasıl satılır, partner ne kazanır':'Live: how to sell UAE Grand Tour and what partners earn')]}
+ };
+ for(var d=new Date(WEEKS[0].from);d<=WEEKS[10].to;d=new Date(d.getTime()+864e5)){
+  var k=key(d), w=WEEKS.filter(function(x){return d>=x.from&&d<=x.to})[0], sp=SP[k];
+  var it=(sp&&sp.r)?[]:base(d,w); if(sp)it=it.concat(sp.it);
+  if(EMAIL[k])it.push(I('10:00','E',['EM'],EMAIL[k][2]?'P':'D',F.e,tr?EMAIL[k][1]:EMAIL[k][0]));
+  it.sort(function(a,b){return a.t.localeCompare(b.t)});
+  var c={},yy=k.slice(2,4)+k.slice(5,7)+k.slice(8,10), wi=WEEKS.indexOf(w);
+  it.forEach(function(x){c[x.k]=(c[x.k]||0)+1;x.id='UGT-'+yy+'-'+x.k+c[x.k];x.utm='ugt_w'+wi+'_'+w.c;});
+  plan.push({d:d,k:k,w:w,wi:wi,it:it,b:sp&&sp.b&&sp.b[tr?1:0],note:sp&&sp.note&&sp.note[tr?1:0]});
+ }
+ return plan;
+}
+
+var EX=[
+ {id:'reel',stage:'V',ps:['IG','FB','TT','YT'],fmt:['Reel · 15 s','Reel · 15 sn'],kind:'phone3',bg:['night','dune','sea'],
+  frames:[['828 m','Burj Khalifa'],['That\'s day one.',''],['Six emirates to go.','UAE Grand Tour']],
+  cap:'828 metres above Dubai, and your Grand Tour has only just begun. Eleven days, seven emirates, one journey.\n\nWhich emirate would you add first?\n\n#UAEGrandTour #OneCountrySevenEmirates #VisitUAE',
+  why:['Visibility: one iconic fact as the hook, then the bigger promise. Tag @visit.dubai and @visituae for a repost.','Görünürlük: kanca olarak tek bir ikonik bilgi, ardından büyük vaat. Paylaşım için @visit.dubai ve @visituae etiketlenir.']},
+ {id:'carousel',stage:'I',ps:['IG','FB'],fmt:['Carousel · 5 slides','Carousel · 5 kare'],kind:'car',bg:['sand','night','sand','dune','clay'],
+  frames:[['Louvre Abu Dhabi','4 things to see'],['The dome','A rain of light through 7,850 stars'],['The galleries','The story of humanity, gallery by gallery'],['When to go','Late afternoon, when the light moves across the floor'],['Plan it in','Your Grand Tour, day by day →']],
+  cap:'Save this for your Abu Dhabi day. Four things not to miss at Louvre Abu Dhabi, and how to fit it into a seven-emirate journey.\n\nCollab: @louvreabudhabi @visitabudhabi\n#UAEGrandTour #LouvreAbuDhabi #InAbuDhabi',
+  why:['Interest: explains one point of interest in depth and ends with the journey. Proposed as a Collab post with Louvre Abu Dhabi.','İlgi: tek bir ilgi noktasını derinlemesine anlatır, rota ile biter. Louvre Abu Dhabi ile ortak gönderi olarak önerilir.']},
+ {id:'quiz',stage:'I',ps:['IG'],fmt:['Story set · 3 frames','Story seti · 3 kare'],kind:'story',bg:['sand','sea','dune'],
+  frames:[{t:'How do you want to feel?',quiz:['Calm','Thrilled','Inspired','Together']},{t:'Calm?',s:'Grand Wellness: quiet shores, spa days, slow mornings.'},{t:'Your journey',link:'See Grand Wellness'}],
+  cap:'',why:['Interest: the "Choose a Feeling" quiz. Every answer points to a journey; the link sticker goes to that journey page with a UTM tag.','İlgi: "Choose a Feeling" quiz\'i. Her cevap bir rotaya çıkar; link sticker UTM\'li rota sayfasına gider.']},
+ {id:'demand',stage:'D',ps:['IG','FB'],fmt:['Post · 4:5','Gönderi · 4:5'],kind:'post',bg:['dune'],
+  frames:[['11 days · 7 emirates','One journey'],[]],
+  cap:'Don\'t miss 2027\'s journey of the year. Desert, sea, mountains and culture, from Abu Dhabi to Fujairah, with private transfers, a local guide and 4–5 star hotels.\n\nGrand Classic from $X per person.\nMessage us on WhatsApp for your private quote within 24 hours.\n\n#UAEGrandTour #GrandClassic',
+  why:['Demand: a clear offer, a price anchor and one action. The price comes from UAE Grand Tour.','Talep: net bir teklif, fiyat çıpası ve tek bir aksiyon. Fiyat UAE Grand Tour\'dan gelir.']},
+ {id:'sales',stage:'S',ps:['IG'],fmt:['Story · 1 frame','Story · 1 kare'],kind:'story',bg:['night'],
+  frames:[{t:'Your private quote in 24 hours',s:'Tell us your dates and who is travelling.',wa:'Message us on WhatsApp'}],
+  cap:'',why:['Sales: shortest path to a conversation. Every WhatsApp chat is logged in ARNOLD with the story\'s ID.','Satış: konuşmaya en kısa yol. Her WhatsApp görüşmesi Story\'nin ID\'si ile ARNOLD\'a kaydedilir.']},
+ {id:'event',stage:'I',ps:['IG','FB','TT','YT'],fmt:['This Week in the UAE · Reel','This Week in the UAE · Reel'],kind:'post',bg:['clay'],
+  frames:[['This week in the UAE','2 December · Eid Al Etihad'],[]],
+  cap:'This week in the UAE: Eid Al Etihad on 2 December. Flags, fireworks and celebrations across all seven emirates. One country, seven ways to celebrate.\n\nSee where the Grand Tour takes you →\n#UAEGrandTour #EidAlEtihad #UAENationalDay',
+  why:['Interest: the weekly event series. Events come from official calendars, so tourism authorities are likely to share it.','İlgi: haftalık etkinlik serisi. Etkinlikler resmi takvimlerden geldiği için turizm otoritelerinin paylaşma ihtimali yüksek.']},
+ {id:'guide',stage:'V',ps:['IG','TT'],fmt:['Guide\'s Corner · Reel 20 s','Rehberin Köşesi · Reel 20 sn'],kind:'phone3',bg:['sea','night','dune'],
+  frames:[['Jebel Jais','Ras Al Khaimah'],['1,934 m','The highest point in the UAE'],['Most visitors never come up here.','— Your guide']],
+  cap:'Our guide\'s favourite view on the Grand Adventure: Jebel Jais, the highest point in the UAE. Filmed on tour, no filters.\n\n#UAEGrandTour #JebelJais #VisitRasAlKhaimah',
+  why:['Visibility and trust: real footage from our own guides (3 clips per tour). Tag @visitrasalkhaimah.','Görünürlük ve güven: kendi rehberlerimizden gerçek görüntü (her turdan 3 klip). @visitrasalkhaimah etiketlenir.']},
+ {id:'occasion',stage:'D',ps:['IG','FB'],fmt:['Occasion post · 4:5','Özel gün gönderisi · 4:5'],kind:'post',bg:['night'],
+  frames:[['Turning 50?','Celebrate under desert stars'],[]],
+  cap:'Some birthdays deserve more than a dinner. Celebrate yours with a private desert evening, then six more emirates to explore together.\n\nAsk us about birthday and anniversary journeys.\n#UAEGrandTour #CelebrateInTheUAE',
+  why:['Demand: occasions (birthdays, anniversaries, Easter, Eid, Black Friday) give people a reason to book now.','Talep: özel günler (doğum günü, yıldönümü, Paskalya, bayram, Black Friday) şimdi rezervasyon için bir neden verir.']},
+ {id:'linkedin',stage:'P',ps:['LI'],fmt:['LinkedIn post','LinkedIn gönderisi'],kind:'text',
+  title:'UAE Grand Tour · Partner programme',
+  cap:'Your clients already know Dubai. Now you can sell them the whole country.\n\nUAE Grand Tour offers 10 ready-made journeys across all seven emirates, operated locally with private transfers, guides and 4–5 star hotels.\n\nJoin the partner programme to get journey PDFs, partner rates and your earnings model. Online workshop on 14 January: how to sell UAE Grand Tour.\n\nRegister: [partner link]',
+  why:['Partners: announces the programme without public commission details; details come after sign-up.','Partnerler: programı komisyon detayı vermeden duyurur; detaylar kayıttan sonra paylaşılır.']},
+ {id:'news',stage:'D',ps:['EM'],fmt:['Newsletter','Bülten'],kind:'mail',
+  subject:'Seven emirates, one journey: plan your 2027',pre:'Ten journeys, one country. Your private quote within 24 hours.',
+  blocks:['This month in the UAE: National Day, winter sun and the start of the season','Journey of the month: Grand Classic, 11 days across all seven emirates','Guide\'s Corner: the view from Jebel Jais','Get your private quote →'],
+  why:['Demand: every block links to a journey page with UTM tags, so clicks and quote requests are traceable in ARNOLD.','Talep: her blok UTM\'li rota sayfasına gider; tıklamalar ve teklif talepleri ARNOLD\'da izlenir.']}
+];
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function frameHTML(f,bg,kind){
+ if(Array.isArray(f))return '<div class="fr bg-'+bg+'"><span class="fr-a">'+esc(f[0]||'')+'</span>'+(f[1]?'<span class="fr-b">'+esc(f[1])+'</span>':'')+'<span class="fr-logo">UAE GRAND TOUR</span></div>';
+ var h='<div class="fr bg-'+bg+'"><span class="fr-a sm">'+esc(f.t)+'</span>';
+ if(f.s)h+='<span class="fr-b">'+esc(f.s)+'</span>';
+ if(f.quiz)h+='<span class="quiz">'+f.quiz.map(function(q){return '<i>'+esc(q)+'</i>'}).join('')+'</span>';
+ if(f.link)h+='<span class="sticker">'+esc(f.link)+'</span>';
+ if(f.wa)h+='<span class="sticker wa">'+esc(f.wa)+'</span>';
+ return h+'<span class="fr-logo">UAE GRAND TOUR</span></div>';
+}
+function renderExamples(lang,T){
+ var tr=lang==='tr', el=document.getElementById('exGrid'); if(!el)return;
+ el.innerHTML=EX.map(function(e){
+  var vis='';
+  if(e.kind==='phone3'||e.kind==='story'||e.kind==='car')vis='<div class="frames '+e.kind+'">'+e.frames.map(function(f,i){return frameHTML(f,e.bg[i%e.bg.length],e.kind)}).join('')+'</div>';
+  else if(e.kind==='post')vis='<div class="frames post">'+frameHTML(e.frames[0],e.bg[0])+'</div>';
+  else if(e.kind==='text')vis='<div class="lipost"><b>'+esc(e.title)+'</b><span class="small">'+(tr?'Şirket sayfası + paylaşım':'Company page + shares')+'</span></div>';
+  else if(e.kind==='mail')vis='<div class="mail"><div><span class="small">'+(tr?'Konu':'Subject')+'</span><b>'+esc(e.subject)+'</b></div><div><span class="small">'+(tr?'Ön metin':'Preheader')+'</span>'+esc(e.pre)+'</div><ol>'+e.blocks.map(function(b){return '<li>'+esc(b)+'</li>'}).join('')+'</ol></div>';
+  return '<article class="ex-card"><header><span class="stg s'+e.stage+'">'+T.st[e.stage]+'</span><span class="pls">'+e.ps.map(function(p){return '<span class="pl '+p+'">'+p+'</span>'}).join('')+'</span><span class="small">'+esc(e.fmt[tr?1:0])+'</span></header>'+vis+
+   (e.cap?'<div class="caption"><span class="small">'+(tr?'Metin (İngilizce yayınlanır)':'Caption')+'</span><p>'+esc(e.cap).replace(/\n/g,'<br>')+'</p></div>':'')+
+   '<p class="why">'+esc(e.why[tr?1:0])+'</p></article>';
+ }).join('');
+}
+
+function seeded(n,seed,w,h,maxY){var s=seed,o='';function r(){s=(s*9301+49297)%233280;return s/233280}for(var i=0;i<n;i++){var x=r()*w,y=r()*maxY,rad=r()*2.2+0.6,op=(r()*0.6+0.3).toFixed(2);o+='<circle cx="'+x.toFixed(0)+'" cy="'+y.toFixed(0)+'" r="'+rad.toFixed(1)+'" fill="#fcfaf7" opacity="'+op+'"/>'}return o}
+function skyline(){var o='',x=0,s=7;function r(){s=(s*9301+49297)%233280;return s/233280}
+ while(x<1080){var w=30+r()*60,h=120+r()*260;if(x>440&&x<640){x+=w;continue}o+='<rect x="'+x.toFixed(0)+'" y="'+(1350-280-h).toFixed(0)+'" width="'+(w-6).toFixed(0)+'" height="'+(h+280).toFixed(0)+'" fill="#16212b"/>';
+  for(var wy=1350-280-h+20;wy<1300;wy+=34){if(r()>.55)o+='<rect x="'+(x+8).toFixed(0)+'" y="'+wy.toFixed(0)+'" width="8" height="12" fill="#edc48a" opacity=".55"/>'}x+=w}return o}
+var VIS={
+ burj:'<svg viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dubai skyline at sunset"><defs><linearGradient id="vb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2b3a"/><stop offset=".55" stop-color="#9c4f2f"/><stop offset=".8" stop-color="#e09a5f"/><stop offset="1" stop-color="#edc48a"/></linearGradient></defs><rect width="1080" height="1350" fill="url(#vb1)"/>'+seeded(70,3,1080,1350,420)+'<circle cx="820" cy="900" r="120" fill="#f4d29b" opacity=".85"/>'+skyline()+
+  '<polygon points="540,170 548,420 562,420 566,640 584,640 590,860 610,860 618,1080 640,1080 648,1350 432,1350 440,1080 462,1080 470,860 490,860 496,640 514,640 518,420 532,420" fill="#0f1820"/><line x1="540" y1="120" x2="540" y2="175" stroke="#0f1820" stroke-width="6"/>'+
+  '<rect y="1180" width="1080" height="170" fill="#0f1820" opacity=".55"/><text x="72" y="300" font-family="Jost,sans-serif" font-weight="100" font-size="190" fill="#fcfaf7" letter-spacing="-8">828 M</text><text x="78" y="370" font-family="Jost,sans-serif" font-weight="300" font-size="42" fill="#fcfaf7" letter-spacing="2">DAY ONE OF SEVEN EMIRATES</text><text x="78" y="1270" font-family="Jost,sans-serif" font-weight="400" font-size="26" fill="#fcfaf7" letter-spacing="10">UAE GRAND TOUR</text></svg>',
+ route:'<svg viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Route across the seven emirates"><rect width="1080" height="1350" fill="#f4ede6"/><path d="M0 1350 L0 960 C180 930 300 900 420 820 C520 750 600 640 660 560 C720 470 760 380 800 300 L860 300 C880 420 900 560 940 700 C980 820 1040 900 1080 930 L1080 1350Z" fill="#e9dbcc"/><path d="M0 960 C180 930 300 900 420 820 C520 750 600 640 660 560 C720 470 760 380 800 300" fill="none" stroke="#9c8c7a" stroke-width="3"/>'+
+  '<path d="M250 1010 L470 790 L560 700 L610 640 L660 570 L770 380 L900 720 L520 1090 Z" fill="none" stroke="#c06642" stroke-width="5" stroke-dasharray="14 12"/>'+
+  [[250,1010,'ABU DHABI','start'],[470,790,'DUBAI','start'],[560,700,'SHARJAH','start'],[610,640,'AJMAN','start'],[660,570,'UMM AL QUWAIN','start'],[770,380,'RAS AL KHAIMAH','end'],[900,720,'FUJAIRAH','end'],[520,1090,'AL AIN','start']].map(function(p){return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="16" fill="#c06642"/><circle cx="'+p[0]+'" cy="'+p[1]+'" r="30" fill="none" stroke="#c06642" opacity=".35" stroke-width="3"/><text x="'+(p[3]==='end'?p[0]-42:p[0]+42)+'" y="'+(p[1]+10)+'" text-anchor="'+p[3]+'" font-family="Jost,sans-serif" font-size="30" font-weight="400" letter-spacing="3" fill="#223749">'+p[2]+'</text>'}).join('')+
+  '<text x="72" y="150" font-family="Jost,sans-serif" font-weight="100" font-size="104" fill="#223749" letter-spacing="-4">11 DAYS</text><text x="72" y="250" font-family="Jost,sans-serif" font-weight="100" font-size="104" fill="#223749" letter-spacing="-4">7 EMIRATES</text><text x="76" y="310" font-family="Jost,sans-serif" font-weight="400" font-size="32" fill="#c06642" letter-spacing="6">GRAND CLASSIC · FROM $X</text><rect x="72" y="1210" width="380" height="76" rx="38" fill="#c06642"/><text x="262" y="1258" text-anchor="middle" font-family="Jost,sans-serif" font-weight="500" font-size="26" fill="#fff" letter-spacing="4">PLAN YOUR JOURNEY</text></svg>',
+ desert:'<svg viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Desert camp under the stars"><defs><linearGradient id="vd1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1620"/><stop offset=".7" stop-color="#223749"/><stop offset="1" stop-color="#4a3a3a"/></linearGradient><radialGradient id="vd2"><stop offset="0" stop-color="#edc48a" stop-opacity=".9"/><stop offset="1" stop-color="#edc48a" stop-opacity="0"/></radialGradient></defs><rect width="1080" height="1350" fill="url(#vd1)"/>'+seeded(220,11,1080,1350,900)+
+  '<path d="M880 520 a60 60 0 1 0 44 104 a48 48 0 1 1 -44 -104z" fill="#f4e3c2"/><path d="M0 980 C220 900 420 930 640 990 C820 1040 960 980 1080 950 L1080 1350 L0 1350Z" fill="#7e3d22"/><path d="M0 1090 C260 1030 520 1080 760 1120 C900 1140 1000 1110 1080 1100 L1080 1350 L0 1350Z" fill="#5a2c19"/>'+
+  '<circle cx="560" cy="1000" r="170" fill="url(#vd2)"/><polygon points="480,1040 560,930 640,1040" fill="#d8c6af"/><polygon points="540,1040 560,1000 580,1040" fill="#9c4f2f"/><circle cx="440" cy="1035" r="7" fill="#edc48a"/><circle cx="690" cy="1032" r="7" fill="#edc48a"/>'+
+  '<text x="72" y="300" font-family="Jost,sans-serif" font-weight="100" font-size="150" fill="#fcfaf7" letter-spacing="-6">TURNING 50?</text><text x="78" y="380" font-family="Jost,sans-serif" font-weight="300" font-size="44" fill="#edc48a" letter-spacing="2">CELEBRATE UNDER DESERT STARS</text><text x="78" y="1280" font-family="Jost,sans-serif" font-size="26" fill="#fcfaf7" letter-spacing="10">UAE GRAND TOUR</text></svg>',
+ jais:'<svg viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mountain road at sunrise"><defs><linearGradient id="vj1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b4a63"/><stop offset=".5" stop-color="#d98a5a"/><stop offset=".75" stop-color="#f4d29b"/></linearGradient></defs><rect width="1080" height="1920" fill="url(#vj1)"/><circle cx="700" cy="1020" r="110" fill="#fbe3b5"/>'+
+  '<path d="M0 1100 L180 900 L320 1010 L520 760 L700 960 L880 820 L1080 1000 L1080 1920 L0 1920Z" fill="#7a8ea0"/><path d="M0 1280 L220 1060 L420 1200 L600 1000 L820 1180 L1080 1040 L1080 1920 L0 1920Z" fill="#4f6578"/><path d="M0 1480 L260 1260 L500 1420 L760 1240 L1080 1400 L1080 1920 L0 1920Z" fill="#31463c"/><path d="M0 1700 L300 1520 L640 1660 L1080 1500 L1080 1920 L0 1920Z" fill="#223749"/>'+
+  '<path d="M300 1920 C360 1800 640 1790 600 1700 C560 1620 380 1640 430 1560 C480 1480 700 1500 680 1420 C660 1350 560 1360 600 1300" fill="none" stroke="#edc48a" stroke-width="10" stroke-linecap="round" opacity=".85"/>'+
+  '<rect x="60" y="60" width="300" height="6" rx="3" fill="#fcfaf7"/><rect x="390" y="60" width="300" height="6" rx="3" fill="#fcfaf7" opacity=".45"/><rect x="720" y="60" width="300" height="6" rx="3" fill="#fcfaf7" opacity=".45"/>'+
+  '<text x="80" y="380" font-family="Jost,sans-serif" font-weight="100" font-size="200" fill="#fcfaf7" letter-spacing="-8">1,934 M</text><text x="86" y="460" font-family="Jost,sans-serif" font-weight="300" font-size="46" fill="#fcfaf7" letter-spacing="2">THE HIGHEST POINT IN THE UAE</text><text x="86" y="530" font-family="Jost,sans-serif" font-weight="400" font-size="34" fill="#fcfaf7" opacity=".85">Jebel Jais, Ras Al Khaimah · Grand Adventure</text><rect x="300" y="1740" width="480" height="90" rx="18" fill="#fcfaf7"/><text x="540" y="1798" text-anchor="middle" font-family="Jost,sans-serif" font-weight="600" font-size="32" fill="#c06642">SEE GRAND ADVENTURE</text></svg>'
+};
+var VX=[
+ {k:'burj',type:'post',stage:'V',cap:'828 metres above Dubai, and your Grand Tour has only just begun. Eleven days, seven emirates, one journey.',tags:'#UAEGrandTour #OneCountrySevenEmirates @visit.dubai @visituae',lk:'Reel cover · Instagram + TikTok',lt:'Reel kapağı · Instagram + TikTok'},
+ {k:'route',type:'post',stage:'D',cap:'Abu Dhabi to Fujairah, in one planned journey. Grand Classic: 11 days across all seven emirates, private transfers and 4–5 star hotels. Your private quote within 24 hours.',tags:'#UAEGrandTour #GrandClassic',lk:'Feed post · Instagram + Facebook',lt:'Akış gönderisi · Instagram + Facebook'},
+ {k:'desert',type:'post',stage:'D',cap:'Some birthdays deserve more than a dinner. Celebrate yours with a private desert evening, then six more emirates to explore together.',tags:'#UAEGrandTour #CelebrateInTheUAE',lk:'Occasion post · Instagram + Facebook',lt:'Özel gün gönderisi · Instagram + Facebook'},
+ {k:'jais',type:'story',stage:'V',cap:'',tags:'',lk:'Story · Instagram',lt:'Story · Instagram'}
+];
+function igIcons(){return '<svg viewBox="0 0 120 24" width="120" height="24" aria-hidden="true"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M44 4a8 8 0 1 1-4.6 14.6L35 20l1.4-4.2A8 8 0 0 1 44 4z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M62 5l16 0-8 16-2-7-6-4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>'}
+function renderVisuals(lang,T){
+ var el=document.getElementById('exVisual'); if(!el)return; var tr=lang==='tr';
+ el.innerHTML=VX.map(function(v){
+  var head='<div class="ig-head"><span class="ig-av">UGT</span><b>uaegrandtour</b><span class="stg s'+v.stage+'">'+T.st[v.stage]+'</span></div>';
+  if(v.type==='story')return '<figure class="ig ig-story">'+'<div class="ig-media story">'+VIS[v.k]+'<div class="ig-sthead"><span class="ig-av">UGT</span><b>uaegrandtour</b></div></div><figcaption class="small">'+(tr?v.lt:v.lk)+'</figcaption></figure>';
+  return '<figure class="ig">'+head+'<div class="ig-media">'+VIS[v.k]+'</div><div class="ig-bar">'+igIcons()+'</div><div class="ig-cap"><b>uaegrandtour</b> '+esc(v.cap)+' <span class="ig-tags">'+esc(v.tags)+'</span></div><figcaption class="small">'+(tr?v.lt:v.lk)+'</figcaption></figure>';
+ }).join('');
+}
+
+function initPage(lang){
+ var T=L[lang], tr=lang==='tr', $=function(id){return document.getElementById(id)};
+ var fmt=function(d){return d.getUTCDate()+' '+T.M[d.getUTCMonth()]};
+ var mb=$('menuBtn'),mn=$('menu');
+ var setM=function(o){mn.hidden=!o;mb.setAttribute('aria-expanded',String(o))};
+ mb.addEventListener('click',function(e){e.stopPropagation();setM(mn.hidden)});
+ mn.addEventListener('click',function(e){if(e.target.closest('a'))setM(false)});
+ root.addEventListener('click',function(e){if(!mn.hidden&&!mn.contains(e.target))setM(false)});
+ var PLAN=buildPlan(lang), PL=T.PL;
+ document.querySelector('#weeksTable tbody').innerHTML=WEEKS.map(function(w,i){var o=tr&&w.ot?w.ot:w.o;return '<tr><td><b>'+T.W+i+'</b></td><td style="white-space:nowrap">'+fmt(w.from)+' – '+fmt(w.to)+'</td><td>'+(tr&&w.pt?w.pt:w.p)+'</td><td>'+(o||'<span class="small">—</span>')+'</td></tr>'}).join('');
+ var month='11', act={}; Object.keys(PL).forEach(function(p){act[p]=1});
+ var ch=$('platChips');
+ ch.innerHTML=Object.keys(PL).map(function(p){return '<button class="chip" data-p="'+p+'" aria-pressed="true"><span class="pl '+p+'">'+p+'</span>'+PL[p]+'</button>'}).join('');
+ ch.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;var p=b.dataset.p;act[p]=!act[p];b.setAttribute('aria-pressed',String(!!act[p]));render()});
+ $('monthSeg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;month=b.dataset.m;document.querySelectorAll('#monthSeg button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});render()});
+ var days=function(){return PLAN.filter(function(x){return month==='all'||String(x.d.getUTCMonth()+1)===month})};
+ var vis=function(x){return x.it.filter(function(i){return i.ps.some(function(p){return act[p]})})};
+ function render(){var n=0,pl=0,per={};
+  $('cal').innerHTML=days().map(function(x){var its=vis(x);its.forEach(function(i){n++;i.ps.forEach(function(p){if(act[p]){pl++;per[p]=(per[p]||0)+1}})});
+   return '<article class="day'+(x.b?' special':'')+'"><header><span class="dt">'+fmt(x.d)+'<small>'+T.D[x.d.getUTCDay()]+'</small></span>'+(x.b?'<span class="badge">'+x.b+'</span>':'<span class="wk">'+T.W+x.wi+' · '+(tr&&x.w.pt?x.w.pt:x.w.p)+'</span>')+'</header>'+(x.note?'<div class="note">'+x.note+'</div>':'')+
+   (its.length?its.map(function(i){return '<div class="item"><span class="t">'+i.t+'</span><span class="pls">'+i.ps.map(function(p){return '<span class="pl '+p+'">'+p+'</span>'}).join('')+'</span><div class="ti">'+i.ti+'<div class="meta"><span class="stg s'+i.s+'">'+T.st[i.s]+'</span> '+i.f+' · '+i.id+'</div></div></div>'}).join(''):'<div class="note">'+T.none+'</div>')+'</article>'}).join('');
+  $('calSummary').innerHTML='<span><b>'+days().length+'</b> '+T.days+'</span><span><b>'+n+'</b> '+T.pieces+'</span><span><b>'+pl+'</b> '+T.posts+'</span>'+Object.keys(PL).filter(function(p){return per[p]}).map(function(p){return '<span><span class="pl '+p+'">'+p+'</span> <b>'+per[p]+'</b></span>'}).join('');}
+ render();
+ function toast(m){var t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(function(){t.hidden=true},2600)}
+ $('copyCsv').addEventListener('click',function(){
+  var rows=[T.csv];
+  days().forEach(function(x){vis(x).forEach(function(i){i.ps.forEach(function(p){if(act[p])rows.push([i.id+'-'+p,i.id,x.k,i.t,PL[p],i.f,i.ti,T.st[i.s],'W'+x.wi,i.utm,T.status])})})});
+  var csv=rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"'}).join(',')}).join('\n');
+  var ok=function(){toast(T.copied(rows.length-1))};
+  var fb=function(){var ta=document.createElement('textarea');ta.value=csv;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok()}catch(e){toast(T.sel)}ta.remove()};
+  try{navigator.clipboard.writeText(csv).then(ok,fb)}catch(e){fb()}});
+ var tot={};PLAN.forEach(function(x){x.it.forEach(function(i){i.ps.forEach(function(p){tot[p]=(tot[p]||0)+1})})});
+ $('volRows').innerHTML=Object.keys(PL).map(function(p){return '<tr><td><span class="pl '+p+'">'+p+'</span> '+PL[p]+'</td><td class="r">'+(tot[p]||0)+'</td><td class="small">'+T.vol[p]+'</td></tr>'}).join('');
+ var sel=$('weekSel');sel.innerHTML=WEEKS.map(function(w,i){return '<option value="'+i+'">'+T.W+i+' · '+fmt(w.from)+' – '+fmt(w.to)+' · '+(tr&&w.pt?w.pt:w.p)+'</option>'}).join('');
+ function rr(){var i=+sel.value,w=WEEKS[i],c={},t=0;PLAN.filter(function(x){return x.wi===i}).forEach(function(x){x.it.forEach(function(it){it.ps.forEach(function(p){c[p]=(c[p]||0)+1;t++})})});
+  var dash=new Array(6).join('<td class="r small">—</td>');
+  $('repRows').innerHTML=Object.keys(PL).filter(function(p){return c[p]}).map(function(p){return '<tr><td><span class="pl '+p+'">'+p+'</span> '+PL[p]+'</td><td class="r">'+c[p]+'</td>'+dash+'</tr>'}).join('')+'<tr><td><b>'+T.total+'</b></td><td class="r"><b>'+t+'</b></td>'+dash+'</tr>';
+  var r=new Date(w.to.getTime()+864e5);$('repDate').textContent=T.report+': '+T.D[r.getUTCDay()]+' '+fmt(r)+' 10:00 · ugt_w'+i+'_'+w.c;}
+ sel.addEventListener('change',rr);rr();
+ renderExamples(lang,T);
+ renderVisuals(lang,T);
+}
+
+function show(lang){
+ var tpl=document.getElementById('tpl-'+lang)||document.getElementById('tpl-en');
+ var y=window.scrollY; root.innerHTML=''; root.appendChild(document.importNode(tpl.content,true));
+ document.documentElement.lang=lang; try{localStorage.setItem('ugt-lang2',lang)}catch(e){}
+ initPage(lang); window.scrollTo(0,y);
+}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-setlang]');if(b)show(b.getAttribute('data-setlang'))});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var m=document.getElementById('menu');if(m){m.hidden=true;var b=document.getElementById('menuBtn');if(b)b.setAttribute('aria-expanded','false')}}});
+show('en');
+})();
+</script>
+</body>
+</html>
